@@ -5,15 +5,15 @@ require("connect-db.php");
 require("animalcrossing-db.php");
 //include("friend-db")
 
-// $friends = selectAllFriends();
+$friends = selectAllListings();
 // //var_dump($friends);
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Show Inventory"))
-    {
-        addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
-    }
-}
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+//     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Add Friend"))
+//     {
+//         addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
+//     }
+// }
 
 ?>
 
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container">
   <h1>FriendBook</h1>
 
-  <form name="mainForm" action="simpleform.php" method="post">
+  <form name="mainForm" action="listings.php" method="post">
     <div class="row mb-3 mx-3">
       Name:
       <input type="text" class="form-control" name="friendname" required />

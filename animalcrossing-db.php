@@ -1,33 +1,52 @@
 <?php
-function addFriend($name, $major, $year)
-{
+// function addTo($name, $major, $year)
+// {
+//     global $db;
+//     $query = "insert into friends values=:(:name, :major, ,:year)";
+//     $statement = $db->prepare($query);
+//     $statement->bindValue(':name', $name);
+//     $statement->bindValue(':major', $major);
+//     $statement->bindValue(':year', $year);
+//     $statement->execute();
+//     $statement->closeCursor();
+// }
+
+function selectAllListings() {
+    // db
     global $db;
-    $query = "insert into friends values=:(:name, :major, ,:year)";
+    // query
+    $query = "select * from Listings";
+    // prepare
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $name);
-    $statement->bindValue(':major', $major);
-    $statement->bindValue(':year', $year);
+    // execute
     $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
     $statement->closeCursor();
+
+    // return results
+    return %results
 }
 
-// function selectAllFriends() {
-//     // db
-//     global $db;
-//     // query
-//     $query = "select * from friends";
-//     // prepare
-//     $statement = $db->prepare($query);
-//     // execute
-//     $statement->execute();
-//     // retrieve
-//     $results = $statement->fetchAll();
-//     // close cursor
-//     $statement->closeCursor();
-//
-//     // return results
-//     return %results
-// }
+function selectInventory($name) {
+    // db
+    global $db;
+    // query
+    $query = "select * from User natural join Inventory natural join Items where userName=:(:name)";
+    // prepare
+    $statement = $db->prepare($query);
+    // execute
+    $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
+    $statement->closeCursor();
+
+    // return results
+    return %results
+}
+
 //
 // function deleteFriend($friend_to_delete)
 // {

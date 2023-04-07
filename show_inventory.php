@@ -11,7 +11,7 @@ require("animalcrossing-db.php");
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Show Inventory"))
     {
-        addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
+        selectInventory($_POST['username']);
     }
 }
 
@@ -42,23 +42,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?php include("header.html") ?>
 <div class="container">
-  <h1>FriendBook</h1>
+  <h1>User Inventory</h1>
 
-  <form name="mainForm" action="simpleform.php" method="post">
+  <form name="mainForm" action="show_inventory.php" method="post">
     <div class="row mb-3 mx-3">
-      Name:
-      <input type="text" class="form-control" name="friendname" required />
-    </div>
-    <div class="row mb-3 mx-3">
-      Major:
-      <input type="text" class="form-control" name="major" required />
-    </div>
-    <div class="row mb-3 mx-3">
-      Year:
-      <input type="text" class="form-control" name="year" required />
+      Username:
+      <input type="text" class="form-control" name="username" required />
     </div>
     <div class ="row mb-3 mx-3">
-    <input type = "submit" class = "btn btn-primary" name ="actionBtn" value = "Add Friend" title = "Click to Insert Friend" >
+    <input type = "submit" class = "btn btn-primary" name ="actionBtn" value = "Show Inventory" title = "Click to Show Inventory" >
     </div>
   </form>
 </div>

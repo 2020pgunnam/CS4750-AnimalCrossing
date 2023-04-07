@@ -20,7 +20,7 @@
 /** S23, PHP (on local XAMPP or CS server) connect to MySQL instance (GCP) **/
 $username = '';                       // or your username
 $password = 'UpsornSpring2023';
-$host = 'aniimalcorssing-318320:us-east4:animalcrossing';       // e.g., 'cs4750:us-east4:db-demo';
+$host = 'aniimalcrossing-318320:us-east4:animalcrossing';       // e.g., 'cs4750:us-east4:db-demo';
 $dbname = 'animalcrossing';           // e.g., 'guestbook';
 $dsn = "mysql:host=35.221.1.157;dbname=animalcrossing";
 //       e.g., "mysql:host=99.99.999.99;dbname=$dbname";
