@@ -12,12 +12,12 @@ $friend_info_to_update = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Update")
+  if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Update"))
   {
     $friend_info_to_update = getFriendByName($_POST['friend_to_update']);
     var_dump($friend_info_to_update);
   }
-  else if (!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Add friend")
+  else if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Add friend"))
   {
     addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
     $friends = selectAllFriends();
@@ -104,13 +104,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td>
         <form action="simpleform.php" method="post">
             <input type ="submit" name="actionBtn" value="Update" class="btn btn-dark"/>
-            <input type ="hidden" name="friend_to_update" value="<? php echo $item['name'];?>" />
+            <input type ="hidden" name="friend_to_update" value="<?php echo $item['name'];?>" />
         </form>
      </td>
      <td>
         <form action="simpleform.php" method="post">
             <input type ="submit" name="actionBtn" value="Delete" class="btn btn-danger"/>
-            <input type ="hidden" name="friend_to_delete" value="<? php echo $item['name'];?>" />
+            <input type ="hidden" name="friend_to_delete" value="<?php echo $item['name'];?>" />
             </form>
      </td>
   </tr>
