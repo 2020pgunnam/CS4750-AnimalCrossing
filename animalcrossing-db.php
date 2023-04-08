@@ -26,7 +26,7 @@ function selectAllListings() {
     $statement->closeCursor();
 
     // return results
-    return %results
+    return $results;
 }
 
 function selectInventory($name) {
@@ -44,7 +44,7 @@ function selectInventory($name) {
     $statement->closeCursor();
 
     // return results
-    return %results
+    return $results;
 }
 
 //

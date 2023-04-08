@@ -8,11 +8,11 @@ require("animalcrossing-db.php");
 
 // $listings = selectListings();
 // var_dump($friends)
-$listings  = null
+$listings  = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Select Listings")
+  if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Select Listings"))
   {
     $listings() = selectAllListings();
     var_dump($listings);

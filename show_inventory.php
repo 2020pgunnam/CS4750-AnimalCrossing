@@ -11,17 +11,15 @@ $friends = selectAllFriends();
 $friend_info_to_update = null;
 
 // var_dump($friends)
-$inventory  = null
+$inventory  = null;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-  if (!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Show Inventory")
+  if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Show Inventory"))
   {
     $inventory() = getFriendByName($_POST['username']);
     var_dump($inventory);
   }
-}
-
 }
 
 ?>
