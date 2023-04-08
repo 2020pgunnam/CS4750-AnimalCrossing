@@ -6,7 +6,7 @@ require("connect-db.php");
 require("animalcrossing-db.php");
 // include("friend-db.php")
 
-// $listings = selectListings();
+$listings = selectAllListings();
 // var_dump($friends)
 $listings  = null;
 

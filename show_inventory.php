@@ -5,7 +5,7 @@ require("connect-db.php");
 require("animalcrossing-db.php");
 // include("friend-db.php")
 
-$friends = selectAllFriends();
+// $friends = selectAllFriends();
 // var_dump($friends)
 
 $friend_info_to_update = null;
@@ -82,13 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td>
         <form action="show_inventory.php" method="post">
             <input type ="submit" name="actionBtn" value="Update" class="btn btn-dark"/>
-            <input type ="hidden" name="friend_to_update" value="<? php echo $item['userName'];?>" />
+            <input type ="hidden" name="friend_to_update" value="<?php echo $item['userName'];?>" />
         </form>
      </td>
      <td>
         <form action="show_inventory.php" method="post">
             <input type ="submit" name="actionBtn" value="Delete" class="btn btn-danger"/>
-            <input type ="hidden" name="friend_to_delete" value="<? php echo $item['userName'];?>" />
+            <input type ="hidden" name="friend_to_delete" value="<?php echo $item['userName'];?>" />
             </form>
      </td>
   </tr>
