@@ -2,8 +2,8 @@
 require_once 'vendor/autoload.php';
  
 // init configuration 
-$clientID = '<YOUR_CLIENT_ID>';
-$clientSecret = '<YOUR_CLIENT_SECRET>';
+$clientID = '1030996000799-etdclvjj7bouuub0k1e4bp8gfkuls672.apps.googleusercontent.com';
+$clientSecret = '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';
 $redirectUri = '<REDIRECT_URI>';
   
 // create Client Request to access Google API 

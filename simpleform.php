@@ -5,34 +5,34 @@ require("connect-db.php");
 require("animalcrossing-db.php");
 // include("friend-db.php")
 
-$friends = selectAllFriends();
-// var_dump($friends)
+// $friends = selectAllFriends();
+// // var_dump($friends)
 
-$friend_info_to_update = null;
+// $friend_info_to_update = null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Update"))
-  {
-    $friend_info_to_update = getFriendByName($_POST['friend_to_update']);
-    var_dump($friend_info_to_update);
-  }
-  else if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Add friend"))
-  {
-    addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
-    $friends = selectAllFriends();
-  }
-  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
-  {
-    deleteFriend($_POST['friend_to_delete']);
-    $friends = selectAllFriends();
-  }
+// if ($_SERVER['REQUEST_METHOD'] == 'POST')
+// {
+//   if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Update"))
+//   {
+//     $friend_info_to_update = getFriendByName($_POST['friend_to_update']);
+//     var_dump($friend_info_to_update);
+//   }
+//   else if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Add friend"))
+//   {
+//     addFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
+//     $friends = selectAllFriends();
+//   }
+//   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete"))
+//   {
+//     deleteFriend($_POST['friend_to_delete']);
+//     $friends = selectAllFriends();
+//   }
 
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
-  {
-    updateFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
-  }
-}
+//   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Confirm update"))
+//   {
+//     updateFriend($_POST['friendname'], $_POST['major'], $_POST['year']);
+//   }
+// }
 
 ?>
 

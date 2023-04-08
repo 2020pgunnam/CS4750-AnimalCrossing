@@ -82,13 +82,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td>
         <form action="show_inventory.php" method="post">
             <input type ="submit" name="actionBtn" value="Update" class="btn btn-dark"/>
-            <input type ="hidden" name="friend_to_update" value="<?php echo $item['userName'];?>" />
+            <input type ="hidden" name="friend_to_update" value="<? php echo $item['userName'];?>" />
         </form>
      </td>
      <td>
         <form action="show_inventory.php" method="post">
             <input type ="submit" name="actionBtn" value="Delete" class="btn btn-danger"/>
-            <input type ="hidden" name="friend_to_delete" value="<?php echo $item['userName'];?>" />
+            <input type ="hidden" name="friend_to_delete" value="<? php echo $item['userName'];?>" />
             </form>
      </td>
   </tr>
