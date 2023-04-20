@@ -53,14 +53,18 @@ $listings = selectAllListings();
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
         <tr style="background-color:#B0B0B0">
-          <th>Item ID</th>
+          <th>Item Name</th>
           <th>Item Selling Price</th>
+          <th>Name</th>
+          <th>Rating</th>
         </tr>
       </thead>
       <?php foreach ($listings as $item): ?>
         <tr>
-          <td><?php echo $item['itemID']; ?></td>
+          <td><?php echo $item['itemName']; ?></td>
           <td><?php echo $item['itemSellingPrice']; ?></td>
+          <td><?php echo $item['userName']; ?></td>
+          <td><?php echo $item['userRating']; ?></td>
         </tr>
       <?php endforeach; ?>
     </table>
