@@ -33,9 +33,11 @@ function selectInventory($name) {
     // db
     global $db;
     // query
-    $query = "select * from User natural join Inventory natural join Items where userName=:(:name)";
+    $query = "select * from User natural join Inventory natural join Items where userName=:name";
     // prepare
+
     $statement = $db->prepare($query);
+    $statement->bindValue(':name', $name);
     // execute
     $statement->execute();
     // retrieve
