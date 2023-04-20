@@ -15,7 +15,7 @@ function selectAllListings() {
     // db
     global $db;
     // query
-    $query = "select * from Listings";
+    $query = "select userName, itemName, itemSellingPrice, userRating from Listings L natural join Seller S natural join Items I where sellerID=userID ORDER BY itemName";
     // prepare
     $statement = $db->prepare($query);
     // execute
