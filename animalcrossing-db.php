@@ -47,6 +47,42 @@ function selectInventory($name) {
     return $results;
 }
 
+function getUserIDByUserName($userName)
+{
+    global $db;
+    $query = "select userID from User where $userName=:userName";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userName', $userName);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
+
+function getItemIDByItemName($itemName)
+{
+    global $db;
+    $query = "select itemID from Items where $itemName=:itemName";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':itemName', $itemName);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
+
+function getListingPriceByUserItem($userID, $itemID)
+{
+    global $db;
+    $query = "select itemSellingPrice from (User join Listings on sellerID=userID) where (userID=:userID and itemID=:itemID)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);      
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
 //
 // function deleteFriend($friend_to_delete)
 // {
