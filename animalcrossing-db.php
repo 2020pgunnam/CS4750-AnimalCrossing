@@ -61,7 +61,7 @@ function selectInventory($name) {
 // function getFriendByName($name)
 // {
 //     global $db;
-//     $query = "select * from ffiends where name=:name";
+//     $query = "select * from friends where name=:name";
 //     $statement = $db->prepare($query);
 //     $statement->bindValue(':name', $name);
 //     $statement->execute();
