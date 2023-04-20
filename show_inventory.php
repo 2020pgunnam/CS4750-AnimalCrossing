@@ -3,24 +3,11 @@ require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
-// include("friend-db.php")
 
-// $friends = selectAllFriends();
-// var_dump($friends)
+$inventory = selectInventory('edyummy')
 
-$friend_info_to_update = null;
 
-// var_dump($friends)
-$inventory  = null;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')
-{
-  if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Show Inventory"))
-  {
-    $inventory() = getFriendByName($_POST['username']);
-    var_dump($inventory);
-  }
-}
 
 ?>
 
@@ -35,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   <meta name="author" content="your name">
   <meta name="description" content="include some description about your page">
 
-  <title>Bootstrap example</title>
+  <title>Inventory</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="icon" type="image/png" href="http://www.cs.virginia.edu/~up3f/cs4750/images/db-icon.png" />
@@ -49,15 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
   <form name="mainForm" action="simpleform.php" method="get">
   <div class="row mb-3 mx-3">
-    Username:
-    <input type="text" class="form-control" name="friendname" required
-    value="<?php if ($inventory!=null) echo $friend_info_to_update['userName'];?>"/>
+    Username: edyummy
+    <!-- <input type="text" class="form-control" name="friendname" required
+    value="<?php if ($inventory!=null) echo $friend_info_to_update['userName'];?>"/> -->
   </div>
 
 
-  <div class="row mb-3 mx-3">
+  <!-- <div class="row mb-3 mx-3">
     <input type="submit" class="btn btn-primary" name="actionBtn" value="Show Inventory" title="click to show inventory" />
-  </div>
+  </div> -->
 
 </form>
 
@@ -79,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
      <td><?php echo $item['itemAveragePrice']; ?></td>
      <td><?php echo $item['itemCount']; ?></td>
      <td><?php echo $item['numListingsAvailable']; ?></td>
-     <td>
+     <!-- <td>
         <form action="show_inventory.php" method="post">
             <input type ="submit" name="actionBtn" value="Update" class="btn btn-dark"/>
             <input type ="hidden" name="friend_to_update" value="<?php echo $item['userName'];?>" />
@@ -90,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <input type ="submit" name="actionBtn" value="Delete" class="btn btn-danger"/>
             <input type ="hidden" name="friend_to_delete" value="<?php echo $item['userName'];?>" />
             </form>
-     </td>
+     </td> -->
   </tr>
 <?php endforeach; ?>
 </table>
