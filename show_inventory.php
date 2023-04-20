@@ -4,10 +4,12 @@ require("connect-db.php");
 
 require("animalcrossing-db.php");
 
-$inventory = selectInventory('edyummy')
-
-
-
+$inventory = selectInventory('7aceOfSpades');
+$userID = getUserIDByUserName('7aceOfSpades');
+var_dump($userID);
+// $inventory = null
+// $sellingPrices = null
+// $name = null
 
 ?>
 
@@ -36,50 +38,60 @@ $inventory = selectInventory('edyummy')
 
   <form name="mainForm" action="simpleform.php" method="get">
   <div class="row mb-3 mx-3">
-    Username: edyummy
-    <!-- <input type="text" class="form-control" name="friendname" required
-    value="<?php if ($inventory!=null) echo $friend_info_to_update['userName'];?>"/> -->
+    7aceOfSpades
+    <!-- echo $name -->
   </div>
 
-
-  <!-- <div class="row mb-3 mx-3">
-    <input type="submit" class="btn btn-primary" name="actionBtn" value="Show Inventory" title="click to show inventory" />
-  </div> -->
-
-</form>
+  </form>
 
 <div class="row justify-content-center">
 <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
   <thead>
-  <tr style="background-color:#B0B0B0">
-    <th>Item Name</th>
-    <th>Item Type</th>
-    <th>Item Average Price</th>
-    <th>Item Count</th>
-    <th>numListingsAvailable</th>
-  </tr>
+    <tr style="background-color:#B0B0B0">
+      <th>Item Name</th>
+      <th>Item Type</th>
+      <th>Item Average Price</th>
+      <th>Item Count</th>
+      <th>Number of Listings Available</th>
+      <th>Your Listing Price</th>
+    </tr>
   </thead>
-<?php foreach ($inventory as $item): ?>
-  <tr>
-     <td><?php echo $item['itemName']; ?></td>
-     <td><?php echo $item['itemType']; ?></td>
-     <td><?php echo $item['itemAveragePrice']; ?></td>
-     <td><?php echo $item['itemCount']; ?></td>
-     <td><?php echo $item['numListingsAvailable']; ?></td>
-     <!-- <td>
-        <form action="show_inventory.php" method="post">
-            <input type ="submit" name="actionBtn" value="Update" class="btn btn-dark"/>
-            <input type ="hidden" name="friend_to_update" value="<?php echo $item['userName'];?>" />
-        </form>
-     </td>
-     <td>
-        <form action="show_inventory.php" method="post">
-            <input type ="submit" name="actionBtn" value="Delete" class="btn btn-danger"/>
-            <input type ="hidden" name="friend_to_delete" value="<?php echo $item['userName'];?>" />
-            </form>
-     </td> -->
-  </tr>
-<?php endforeach; ?>
+  <!-- If the user doesn't have anything in the inventory, show message "Seems like you don't have anything in your inventory" -->
+  <!-- Otherwise, list inventory items -->
+  <?php
+    if($inventory == null){
+      echo "Seems like you don't have any items.";}
+  ?>
+  <?php foreach ($inventory as $item): ?>
+    <?php $itemID = getItemIDByItemName($item['itemName']);?>
+    <?php var_dump($itemID); ?>
+    <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
+    <?php var_dump($listingPrice); ?>
+    <tr>
+      <td><?php echo $item['itemName']; ?></td>
+      <td><?php echo $item['itemType']; ?></td>
+      <td><?php echo $item['itemAveragePrice']; ?></td>
+      <td><?php echo $item['itemCount']; ?></td>
+      <td><?php echo $item['numListingsAvailable']; ?></td>
+      <td>
+        <!-- If the user is a seller of the item, show the current listing price -->
+        <!-- Regardless, the user can set a new price for their new/existing listing -->
+          <form name="mainForm" action="show_inventory.php" method="post">
+            <input type="text" class="form-control" name="sellingPrice" required
+              value="<?php if($listingPrice != false){ echo $listingPrice; } ?>"
+            />
+          </form>
+      </td>
+      <!-- <td>
+        If the user is a seller of the item, have the option to update the price or delete the listing
+        If the user doesn't have a listing for the item, have the option to create a listing
+          <form action="show_inventory.php" method=post>
+          <input type="submit" name="actionBtn" value="Create Listing" class="btn btn-dark"/>
+            <input type="hidden" name="listing_to_create" value="<?php echo $item['sellingPrice']; ?>"/>
+      </td> -->
+    </tr>
+  
+  <?php endforeach; ?>
 </table>
 </div>
 </body>
