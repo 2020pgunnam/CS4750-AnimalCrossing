@@ -43,3 +43,11 @@ function setDarkMode() {
                 localStorage.removeItem('theme', 'night');
             }
         }
+
+        // https://datatables.net/examples/styling/bootstrap5.html
+        $(document).ready(function() {
+            $('#listings').DataTable
+        });
+        $(document).ready(function() {
+            $('#inventory').DataTable();
+        });

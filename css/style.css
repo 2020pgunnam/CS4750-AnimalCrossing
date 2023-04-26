@@ -8,11 +8,11 @@
 /* All a tags within a div on hover */
 @font-face{
     font-family: 'AC';
-    src: url('fonts/FinkHeavy.eot');
-    src: url('fonts/FinkHeavy.eot?#iefix') format('embedded-opentype'),
-    url('fonts/FinkHeavy.woff') format('woff'),
-    url('fonts/FinkHeavy.ttf') format('truetype'),
-    url('fonts/FinkHeavy.svg#webfont') format('svg');
+    src: url('../fonts/FinkHeavy.eot');
+    src: url('../fonts/FinkHeavy.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/FinkHeavy.woff') format('woff'),
+    url('../fonts/FinkHeavy.ttf') format('truetype'),
+    url('../fonts/FinkHeavy.svg#webfont') format('svg');
     }
 
 
@@ -25,7 +25,19 @@
     --invert-text-color: #FFFFFF;
     --invert-bg-color: #2B3137;
     --square-color: #EB5F0C;
-    --font-family: 'Roboto', 'AC', Arial, Helvetica, sans-serif;
+    --font-family: 'AC', 'Roboto', Arial, Helvetica, sans-serif;
+}
+table.dataTable thead .sorting:after,
+table.dataTable thead .sorting:before,
+table.dataTable thead .sorting_asc:after,
+table.dataTable thead .sorting_asc:before,
+table.dataTable thead .sorting_asc_disabled:after,
+table.dataTable thead .sorting_asc_disabled:before,
+table.dataTable thead .sorting_desc:after,
+table.dataTable thead .sorting_desc:before,
+table.dataTable thead .sorting_desc_disabled:after,
+table.dataTable thead .sorting_desc_disabled:before {
+  bottom: .5em;
 }
 
 .night h1{
@@ -80,6 +92,15 @@
     display: flex;
     transition: .3s;
   }
+
+.table_container {
+    max-width: 1800px;
+    padding:  10px;
+    width: 80%;
+    margin: 0 auto;
+    transition: .3s;
+    margin-left: 10%;
+}
 
 .container .h1 {
     font-family: 'AC', Times New Roman, serif;
@@ -364,11 +385,25 @@ div a{
     font-size: 64px;
     width: 80%;
 }
+.span2 {
+    color: var(--white-color);
+    transition: .3s;
+    font-weight: 800;
+    font-size: 32px;
+}
+.night .span2 {
+color: var(--invert-bg-color);
+transition: .3s;
+font-weight: 800;
+font-size: 32px;
+}
+.btn
 .intro_title span {
     color: var(--primary-color);
     transition: .3s;
     font-weight: 800;
     font-size: 64px;
+    font-family: "AC", "Roboto", Arial, Helvetica, sans-serif;
   }
 
 .night .intro_title span{
@@ -387,7 +422,7 @@ div a{
 .night .intro_title span1{
     transition: .3s;
     font-weight: 800;
-    font-size: 32px;
+    font-size: 48px;
   }
 
 .intro_title span2{
@@ -401,7 +436,7 @@ div a{
     color: var(--invert-bg-color);
     transition: .3s;
     font-weight: 800;
-    font-size: 48px;
+    font-size: 32px;
   }
 .intro_position {
     display: block;
@@ -485,6 +520,7 @@ br1 {
     overflow: hidden; 
     margin-top: -8px;
     margin-left: 5px;
+    font-family: "AC", "Roboto", Arial, Helvetica, sans-serif;
 }
 
 .types li{
@@ -552,9 +588,10 @@ br1 {
 }
 
 .intro_container .btn{
+    font-family: "AC", "Roboto", Arial, Helvetica, sans-serif;
     display: inline-flex;
-    background: var(--primary-color);
-    box-shadow: 0 5px 0 #b74f13;
+    background: var(--invert-primary-color);
+    box-shadow: 0 5px 0 var(--primary-color);
     border-radius: 30px;
     padding: 5px 16px;
     font-weight: 500;
@@ -563,8 +600,6 @@ br1 {
     transition: .3s;
     position: absolute;
     z-index: 10;
-    top: 80%;
-    left: 13%;
   }
   
   .intro_container .btn:active{
@@ -631,12 +666,29 @@ br1 {
     margin-top: 3rem;
     margin-left: auto;
     margin-right: auto;
-    width: 35%;
+    width: 50%;
+    font-family: "AC", "Roboto", Arial, Helvetica, sans-serif
 }
 
 .profileBorder::before {
     box-sizing: border-box;
 }
+
+.profileBorder .btn {
+    font-family: "AC", "Roboto", Arial, Helvetica, sans-serif;
+    display: inline-flex;
+    background: var(--invert-primary-color);
+    box-shadow: 0 5px 0 var(--primary-color);
+    border-radius: 30px;
+    padding: 5px 16px;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-color);
+    transition: .3s;
+    position: absolute;
+    z-index: 10;
+}
+
 
 .btnFriend{
     color: #fff;
@@ -751,6 +803,18 @@ html {
     #F2C17D) 1;
     }
 
+.table {
+    caption-side: bottom;
+    border-collapse: collapse;
+    box-sizing: border-box;
+    justify-content: center;
+    width: 80%;
+    display: table;
+    border-color: var(--primary-color);
+}
+.night .table {
+    color: var(--text-color);
+}
 .displayClass {
     display: inline;
     text-align: left;
