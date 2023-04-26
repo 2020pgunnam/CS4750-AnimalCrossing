@@ -1,23 +1,13 @@
+
 <?php
 require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
-// include("friend-db.php")
 
-// $listings = selectAllListings();
-// var_dump($friends)
 $listings = selectAllListings();
 // var_dump($listings)
 
-// if ($_SERVER['REQUEST_METHOD'] == 'POST')
-// {
-//   if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Select Listings"))
-//   {
-//     $listings = selectAllListings();
-//     var_dump($listings);
-//   }
-// }
 
 ?>
 <!-- 1. create HTML5 doctype -->
@@ -74,7 +64,7 @@ $listings = selectAllListings();
 
             <thead>
               <tr>
-                <th class="th-sm">Item ID
+                <th class="th-sm">Item Name
                 </th>
                 <th class="th-sm">Item Selling Price
                 </th>
@@ -87,7 +77,7 @@ $listings = selectAllListings();
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <tr>
-                  <td><?php echo $item['itemID']; ?></td>
+                  <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
                   <td><?php echo $item['userRating']; ?></td>
@@ -136,3 +126,7 @@ $listings = selectAllListings();
                     localStorage.setItem('darkMode', '1');
                 }
           };
+
+          </script>
+    </body>
+</html>
