@@ -18,12 +18,12 @@
 ////////////////////////////////////////////
 
 /** S23, PHP (on local XAMPP or CS server) connect to MySQL instance (GCP) **/
-$username = '';                       // or your username
-$password = 'UpsornSpring2023';
-$host = 'aniimalcrossing-318320:us-east4:animalcrossing';       // e.g., 'cs4750:us-east4:db-demo';
-$dbname = 'animalcrossing';           // e.g., 'guestbook';
-$dsn = "mysql:host=35.221.1.157;dbname=animalcrossing";
-//       e.g., "mysql:host=99.99.999.99;dbname=$dbname";
+$username = 'root';                       // or your username
+$password = 'password';
+$host = 'animalcrossing-318320:us-east4:AnimalCrossing';       // e.g., 'cs4750:us-east4:db-demo';
+$dbname = 'AnimalCrossing';           // e.g., 'guestbook';
+$dsn = "mysql:host=35.221.1.157;dbname=AnimalCrossing";
+      //e.g., "mysql:host=99.99.999.99;dbname=$dbname";
 
 // to get public IP addres of the SQL instance, go to GCP SQL overview page
 
@@ -38,7 +38,7 @@ $dsn = "mysql:host=35.221.1.157;dbname=animalcrossing";
 // $username = 'root';                       // or your username
 // $password = '';
 // $host = 'localhost:3306';       // e.g., 'cs4750:us-east4:db-demo';
-// $dbname = 'demo';           // e.g., 'guestbook';
+// $dbname = 'animalcrossing';           // e.g., 'guestbook';
 // $dsn = "mysql:host=$host;dbname=$dbname";
 ////////////////////////////////////////////
 

@@ -1,10 +1,13 @@
 <?php
 require_once 'vendor/autoload.php';
+
+//tutorial used
+//https://code.tutsplus.com/tutorials/create-a-google-login-page-in-php--cms-33214
  
 // init configuration 
 $clientID = '1030996000799-etdclvjj7bouuub0k1e4bp8gfkuls672.apps.googleusercontent.com';
 $clientSecret = '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';
-$redirectUri = '<http://localhost/cs4750/CS4750-AnimalCrossing/';
+$redirectUri = 'http://localhost/databestie/CS4750-AnimalCrossing-main';
   
 // create Client Request to access Google API 
 $client = new Google_Client();
