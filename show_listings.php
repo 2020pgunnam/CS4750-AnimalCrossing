@@ -68,6 +68,10 @@ $listings = selectAllListings();
                 </th>
                 <th class="th-sm">Item Selling Price
                 </th>
+                <th class="th-sm">Name
+                </th>
+                <th class="th-sm">Rating
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -75,15 +79,17 @@ $listings = selectAllListings();
                 <tr>
                   <td><?php echo $item['itemID']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
+                  <td><?php echo $item['userName']; ?></td>
+                  <td><?php echo $item['userRating']; ?></td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
             <tfoot>
               <tr>
-                <th>Item ID
-                </th>
-                <th>Item Selling Price
-                </th>
+                <th>Item Name</th>
+                <th>Item Selling Price</th>
+                <th>Name</th>
+                <th>Rating</th>
               </tr>
             </tfoot>
           </table>
