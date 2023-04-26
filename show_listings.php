@@ -1,13 +1,23 @@
-
 <?php
 require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
+// include("friend-db.php")
 
+// $listings = selectAllListings();
+// var_dump($friends)
 $listings = selectAllListings();
 // var_dump($listings)
 
+// if ($_SERVER['REQUEST_METHOD'] == 'POST')
+// {
+//   if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Select Listings"))
+//   {
+//     $listings = selectAllListings();
+//     var_dump($listings);
+//   }
+// }
 
 ?>
 <!-- 1. create HTML5 doctype -->
@@ -126,7 +136,3 @@ $listings = selectAllListings();
                     localStorage.setItem('darkMode', '1');
                 }
           };
-
-          </script>
-    </body>
-</html>
