@@ -7,7 +7,7 @@ require_once 'vendor/autoload.php';
 // init configuration 
 $clientID = '1030996000799-etdclvjj7bouuub0k1e4bp8gfkuls672.apps.googleusercontent.com';
 $clientSecret = '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';
-$redirectUri = 'http://localhost/databestie/CS4750-AnimalCrossing-main';
+$redirectUri = 'http://localhost/CS4750-AnimalCrossing/redirect.php';
   
 // create Client Request to access Google API 
 $client = new Google_Client();
