@@ -21,14 +21,15 @@
     <script>
         if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
     </script>
-    
-    <header class = "headBlock">  
+
+    <header class = "headBlock">
         <div>
-            <!-- <a href="/main/" -->     
-            <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />        
+            <!-- <a href="/main/" -->
+            <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
             <a href="index.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
-            <a href="inventory.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
-            <a href="listings.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
+            <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
+            <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
+            <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
             <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
             <a href="" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
@@ -37,7 +38,7 @@
             </header>
     <body>
 
-<div class="profileBorder">    
+<div class="profileBorder">
     <h1 class="text-center" style="margin-top: 10px;"> Aloha<span2>_</span2>UserName!</h1>
     <div class=btn style= "left: 52%; margin-top: 10px;"> Import</div>
     <div class=btn style= "left: 42%; margin-top: 10px; margin-bottom: 50px;"> Export</div>
@@ -56,17 +57,17 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        
+
         <script>
             let darkMode = localStorage.getItem('darkMode');
             let darkToggle = document.querySelector('.header_moon');
             let bodyToggle = document.querySelector('body');
-          
+
             if (darkMode && darkMode === '1') {
                 bodyToggle.classList.add('night');
                 darkToggle.classList.add('is-active');
             }
-          
+
                 darkToggle.onclick = function() {
                 bodyToggle.classList.toggle('night');
                 darkToggle.classList.toggle('is-active');
@@ -80,7 +81,7 @@
                     localStorage.setItem('darkMode', '1');
                 }
           };
-          
+
           </script>
     </body>
 </html>

@@ -15,7 +15,25 @@ function selectAllListings() {
     // db
     global $db;
     // query
-    $query = "select userName, itemName, itemSellingPrice, userRating from Listings L natural join Seller S natural join Items I where sellerID=userID ORDER BY itemName";
+    $query = "select userName, itemName, itemSellingPrice, userRating from Listings L natural join Seller S natural join Items I where sellerID=userID";
+    // prepare
+    $statement = $db->prepare($query);
+    // execute
+    $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
+    $statement->closeCursor();
+
+    // return results
+    return $results;
+}
+
+function selectAllItems() {
+    // db
+    global $db;
+    // query
+    $query = "select itemName, itemType, itemAveragePrice, itemImageURL, numListingsAvailable from Items I";
     // prepare
     $statement = $db->prepare($query);
     // execute
@@ -80,7 +98,7 @@ function getListingPriceByUserItem($userID, $itemID)
     $query = "select itemSellingPrice from (User join Listings on sellerID=userID) where (userID=:userID and itemID=:itemID)";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':itemID', $itemID);      
+    $statement->bindValue(':itemID', $itemID);
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
