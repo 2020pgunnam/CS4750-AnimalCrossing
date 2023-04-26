@@ -6,10 +6,29 @@ require("animalcrossing-db.php");
 
 $inventory = selectInventory('7aceOfSpades');
 $userID = getUserIDByUserName('7aceOfSpades');
-var_dump($userID);
+
+// var_dump($userID);
 // $inventory = null
 // $sellingPrices = null
 // $name = null
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+    if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
+    {
+      updateListing($_POST['item_listing_to_update'], $userID, $_POST['price_listing_to_update']);
+      $inventory = selectInventory('7aceOfSpades');
+    }
+    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
+    {
+      addListing($_POST['item_listing_to_create'], $userID, $_POST['price_listing_to_create']);
+      $inventory = selectInventory('7aceOfSpades');
+    }
+    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
+    {
+      deleteListing($_POST['listing_to_delete'], $userID);
+      $inventory = selectInventory('7aceOfSpades');
+    }
+}
 
 ?>
 
@@ -54,6 +73,7 @@ var_dump($userID);
       <th>Item Count</th>
       <th>Number of Listings Available</th>
       <th>Your Listing Price</th>
+      <th>Edit Listing</th>
     </tr>
   </thead>
   <!-- If the user doesn't have anything in the inventory, show message "Seems like you don't have anything in your inventory" -->
@@ -64,9 +84,9 @@ var_dump($userID);
   ?>
   <?php foreach ($inventory as $item): ?>
     <?php $itemID = getItemIDByItemName($item['itemName']);?>
-    <?php var_dump($itemID); ?>
+    <!-- <?php var_dump($itemID); ?> -->
     <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
-    <?php var_dump($listingPrice); ?>
+    <!-- <?php var_dump($listingPrice); ?> -->
     <tr>
       <td><?php echo $item['itemName']; ?></td>
       <td><?php echo $item['itemType']; ?></td>
@@ -78,17 +98,33 @@ var_dump($userID);
         <!-- Regardless, the user can set a new price for their new/existing listing -->
           <form name="mainForm" action="show_inventory.php" method="post">
             <input type="text" class="form-control" name="sellingPrice" required
-              value="<?php if($listingPrice != false){ echo $listingPrice; } ?>"
+              value="<?php if($listingPrice != null){ echo $listingPrice; } ?>"
             />
           </form>
       </td>
-      <!-- <td>
-        If the user is a seller of the item, have the option to update the price or delete the listing
-        If the user doesn't have a listing for the item, have the option to create a listing
+      <!-- If the user is a seller of the item, have the option to update the price or delete the listing -->
+      <!-- If the user doesn't have a listing for the item, have the option to create a listing -->
+      <?php if($listingPrice == null) { ?>
+        <td>
+            <form action="show_inventory.php" method=post>
+              <input type="submit" name="actionBtn" value="Create Listing" class="btn btn-dark"/>
+              <input type="hidden" name="item_listing_to_create" value="<?php echo $itemID; ?>"/>
+              <input type="hidden" name="price_listing_to_create" value="<?php echo $listingPrice; ?>"/>
+            </form>
+        </td>
+      <?php } else { ?>
+        <td>
           <form action="show_inventory.php" method=post>
-          <input type="submit" name="actionBtn" value="Create Listing" class="btn btn-dark"/>
-            <input type="hidden" name="listing_to_create" value="<?php echo $item['sellingPrice']; ?>"/>
-      </td> -->
+            <input type="submit" name="actionBtn" value="Update Listing" class="btn btn-dark"/>
+            <input type="hidden" name="item_listing_to_update" value="<?php echo $itemID; ?>"/>
+            <input type="hidden" name="price_listing_to_update" value="<?php echo $listingPrice; ?>"/>
+          </form>
+          <form action="show_inventory.php" method=post>
+            <input type="submit" name="actionBtn" value="Delete Listing" class="btn btn-dark"/>
+            <input type="hidden" name="listing_to_delete" value="<?php echo $itemID; ?>"/>
+          </form>
+        </td>
+      <?php } ?>
     </tr>
   
   <?php endforeach; ?>
