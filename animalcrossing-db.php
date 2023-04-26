@@ -35,6 +35,7 @@ function selectInventory($name) {
     // query
     $query = "select * from User natural join Inventory natural join Items where userName=:name";
     // prepare
+
     $statement = $db->prepare($query);
 
     $statement->bindValue(':name', $name);
