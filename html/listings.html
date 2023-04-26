@@ -28,11 +28,11 @@
     <script>
         if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
     </script>
-    
-    <header class = "headBlock">  
+
+    <header class = "headBlock">
         <div>
-            <!-- <a href="/main/" -->     
-            <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />        
+            <!-- <a href="/main/" -->
+            <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
             <a href="index.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
             <a href="inventory.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
             <a href="listings.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
@@ -43,9 +43,11 @@
               </div>
             </header>
     <body>
+        <!-- https://datatables.net/examples/styling/bootstrap5.html-->
+        <div class = "table_container">
+            <table id="listings" class="table-table-responsive table-striped table-bordered table-hover table-sm" style="width:100%;">
+    </div>
 
-        <div class= "table_container">
-        <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
                 <th class="th-sm">Name
@@ -538,24 +540,25 @@
             </tfoot>
           </table>
           <script>
-            $('#sortTable').DataTable();
+            $(document).ready(function(){
+                $('#listings').dataTable();
+            });
             </script>
             </div>
-       
-            <!--[if lt IE 7]>
+        <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-            </div>
+
         <script>
             let darkMode = localStorage.getItem('darkMode');
             let darkToggle = document.querySelector('.header_moon');
             let bodyToggle = document.querySelector('body');
-          
+
             if (darkMode && darkMode === '1') {
                 bodyToggle.classList.add('night');
                 darkToggle.classList.add('is-active');
             }
-          
+
                 darkToggle.onclick = function() {
                 bodyToggle.classList.toggle('night');
                 darkToggle.classList.toggle('is-active');
@@ -569,7 +572,7 @@
                     localStorage.setItem('darkMode', '1');
                 }
           };
-          
+
           </script>
     </body>
 </html>

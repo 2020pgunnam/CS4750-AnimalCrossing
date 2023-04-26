@@ -1,15 +1,19 @@
-
 <?php
 require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
 
-$listings = selectAllListings();
-// var_dump($listings)
+$items = selectItems();
+
+// var_dump($userID);
+// $inventory = null
+// $sellingPrices = null
+// $name = null
 
 
 ?>
+
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -48,7 +52,7 @@ $listings = selectAllListings();
             <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
             <a href="index.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
             <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
-            <a href="show_listings.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
+            <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
             <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
             <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
             <a href="" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
@@ -57,46 +61,57 @@ $listings = selectAllListings();
               </div>
             </header>
     <body>
-        <!-- https://datatables.net/examples/styling/bootstrap5.html-->
-        <div class = "table_container">
-            <table id="listings" class="table-table-responsive table-striped table-bordered table-hover table-sm" style="width:100%;">
-    </div>
 
+        <div class= "table_container">
+        <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th class="th-sm">Item ID
+                <th class="th-sm">Item Name
                 </th>
-                <th class="th-sm">Item Selling Price
+                <th class="th-sm">Item Type
+                </th>
+                <th class="th-sm">Item Average Price
+                </th>
+                <th class="th-sm">Item Image URL
+                </th>
+                <th class="th-sm">Number of Listings Available
                 </th>
               </tr>
             </thead>
             <tbody>
-              <?php foreach ($listings as $item): ?>
+              <?php
+                if($items == null){
+                  echo "Seems like there are no items.";}
+              ?>
+              <?php foreach ($items as $item): ?>
                 <tr>
-                  <td><?php echo $item['itemID']; ?></td>
-                  <td><?php echo $item['itemSellingPrice']; ?></td>
-                </tr>
+                  <td><?php echo $item['itemName']; ?></td>
+                  <td><?php echo $item['itemType']; ?></td>
+                  <td><?php echo $item['itemAveragePrice']; ?></td>
+                  <td><?php echo $item['itemImageURL']; ?></td>
+                  <td><?php echo $item['numListingsAvailable']; ?></td>
+
               <?php endforeach; ?>
             </tbody>
             <tfoot>
               <tr>
-                <th>Item ID
-                </th>
-                <th>Item Selling Price
-                </th>
+                <th>Item Name</th>
+                <th>Item Type</th>
+                <th>Item Average Price</th>
+                <th>Item Image URL</th>
+                <th>Number of Listings Available</th>
               </tr>
             </tfoot>
           </table>
           <script>
-            $(document).ready(function(){
-                $('#listings').dataTable();
-            });
+            $('#sortTable').DataTable();
             </script>
             </div>
-        <!--[if lt IE 7]>
+
+            <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+            </div>
         <script>
             let darkMode = localStorage.getItem('darkMode');
             let darkToggle = document.querySelector('.header_moon');
