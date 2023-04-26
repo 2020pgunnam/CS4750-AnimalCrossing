@@ -1,13 +1,23 @@
-
 <?php
 require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
+// include("friend-db.php")
 
+// $listings = selectAllListings();
+// var_dump($friends)
 $listings = selectAllListings();
 // var_dump($listings)
 
+// if ($_SERVER['REQUEST_METHOD'] == 'POST')
+// {
+//   if ((!empty($_POST['actionBtn'])) && ($_POST['actionBtn'] == "Select Listings"))
+//   {
+//     $listings = selectAllListings();
+//     var_dump($listings);
+//   }
+// }
 
 ?>
 <!-- 1. create HTML5 doctype -->
@@ -32,18 +42,27 @@ $listings = selectAllListings();
 <body>
   <div class="container">
     <h1>Listings</h1>
+    <!-- <form name="mainForm" action="listings.php" method="post">
+      <div class="row mb-3 mx-3">
+        <input type="submit" class="btn btn-primary" name="actionBtn" value="Select Listings" title="Click To Show Listings" />
+      </div>
+    </form> -->
   <div class="row justify-content-center">
     <table class="w3-table w3-bordered w3-card-4 center" style="width:70%">
       <thead>
         <tr style="background-color:#B0B0B0">
-          <th>Item ID</th>
+          <th>Item Name</th>
           <th>Item Selling Price</th>
+          <th>Name</th>
+          <th>Rating</th>
         </tr>
       </thead>
       <?php foreach ($listings as $item): ?>
         <tr>
-          <td><?php echo $item['itemID']; ?></td>
+          <td><?php echo $item['itemName']; ?></td>
           <td><?php echo $item['itemSellingPrice']; ?></td>
+          <td><?php echo $item['userName']; ?></td>
+          <td><?php echo $item['userRating']; ?></td>
         </tr>
       <?php endforeach; ?>
     </table>
