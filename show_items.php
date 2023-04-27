@@ -66,14 +66,14 @@ $items = selectAllItems();
         <div class= "table_container">
           <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
               <thead>
-                <tr>
+                <tr>                  
+                  <th class="th-sm">Image
+                  </th>
                   <th class="th-sm">Item Name
                   </th>
                   <th class="th-sm">Item Type
                   </th>
                   <th class="th-sm">Item Average Price
-                  </th>
-                  <th class="th-sm">Item Image URL
                   </th>
                   <th class="th-sm">Number of Listings Available
                   </th>
@@ -86,20 +86,21 @@ $items = selectAllItems();
                 ?>
                 <?php foreach ($items as $item): ?>
                   <tr>
+                    <td><img src=<?php echo $item['itemImageURL'];?>></td>
                     <td><?php echo $item['itemName']; ?></td>
                     <td><?php echo $item['itemType']; ?></td>
                     <td><?php echo $item['itemAveragePrice']; ?></td>
-                    <td><?php echo $item['itemImageURL']; ?></td>
                     <td><?php echo $item['numListingsAvailable']; ?></td>
 
                 <?php endforeach; ?>
               </tbody>
               <tfoot>
-                <tr>
+                <tr>                  
+                  <th>Image</th>
                   <th>Item Name</th>
                   <th>Item Type</th>
                   <th>Item Average Price</th>
-                  <th>Item Image URL</th>
+
                   <th>Number of Listings Available</th>
                 </tr>
               </tfoot>

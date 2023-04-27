@@ -61,6 +61,7 @@
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <tr>
+                  <td><img src=<?php echo $item['itemImageURL'];?>></td>
                   <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>

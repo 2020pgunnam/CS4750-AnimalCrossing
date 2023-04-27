@@ -384,6 +384,7 @@ div a{
 .intro_title {
     font-size: 64px;
     width: 80%;
+    font-weight: 800;
 }
 .span2 {
     color: var(--white-color);

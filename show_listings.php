@@ -63,6 +63,8 @@ $listings = selectAllListings();
         <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
+              <th class="th-sm">Image
+                </th>
                 <th class="th-sm">Item Name
                 </th>
                 <th class="th-sm">Item Selling Price
@@ -76,6 +78,7 @@ $listings = selectAllListings();
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <tr>
+                  <td><img src=<?php echo $item['itemImageURL'];?>></td>
                   <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
@@ -85,6 +88,7 @@ $listings = selectAllListings();
             </tbody>
             <tfoot>
               <tr>
+                <th>Image</th>
                 <th>Item Name</th>
                 <th>Item Selling Price</th>
                 <th>Name</th>
