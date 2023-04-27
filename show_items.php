@@ -4,7 +4,7 @@ require("connect-db.php");
 
 require("animalcrossing-db.php");
 
-$items = selectItems();
+$items = selectAllItems();
 
 // var_dump($userID);
 // $inventory = null
