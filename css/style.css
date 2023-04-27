@@ -100,7 +100,33 @@ table.dataTable thead .sorting_desc_disabled:before {
     margin: 0 auto;
     transition: .3s;
     margin-left: 10%;
+    table-layout: fixed;
+    border-color: var(--primary-color);
 }
+
+.table_table {
+    --bs-table-bg: transparent;
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: #212529;
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+    --bs-table-active-color: #212529;
+    --bs-table-active-bg: rgba(0, 0, 0, 0.1);
+    --bs-table-hover-color: #212529;
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #212529;
+    vertical-align: top;
+    border-color: var(--primary-color);
+    border-top: 2px solid var(--primary-color);
+}
+
+
+.table_table tr:nth-child(even) {background-color: #f2f2f2;}
+.table_table tr:nth-child(odd) {background-color: --gray-color;};
+
+
+
 
 .container .h1 {
     font-family: 'AC', Times New Roman, serif;

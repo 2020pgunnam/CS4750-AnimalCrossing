@@ -86,7 +86,7 @@ $items = selectAllItems();
                 ?>
                 <?php foreach ($items as $item): ?>
                   <tr>
-                    <td><img src=<?php echo $item['itemImageURL'];?>></td>
+                    <td><img src=<?php echo $item['itemImageURL'];?> width="150px" height="75px"></td>
                     <td><?php echo $item['itemName']; ?></td>
                     <td><?php echo $item['itemType']; ?></td>
                     <td><?php echo $item['itemAveragePrice']; ?></td>
