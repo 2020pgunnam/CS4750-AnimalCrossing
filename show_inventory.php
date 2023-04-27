@@ -7,10 +7,6 @@ require("animalcrossing-db.php");
 $inventory = selectInventory('7aceOfSpades');
 $userID = getUserIDByUserName('7aceOfSpades');
 
-// var_dump($userID);
-// $inventory = null
-// $sellingPrices = null
-// $name = null
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
