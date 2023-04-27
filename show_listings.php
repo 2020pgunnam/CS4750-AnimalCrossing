@@ -47,10 +47,12 @@ $listings = selectAllListings();
             <!-- <a href="/main/" -->
             <a href="index.html"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
             <a href="index.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
-            <a href="inventory.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
-            <a href="listings.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
+            <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
+            <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
+            <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
             <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
             <a href="" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
+            
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
                 <i class='bx bx-moon'></i>
               </div>

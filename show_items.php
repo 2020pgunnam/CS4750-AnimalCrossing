@@ -63,7 +63,7 @@ $items = selectItems();
     <body>
 
         <div class= "table_container">
-        <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
+        <table id="items" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
                 <th class="th-sm">Item Name
