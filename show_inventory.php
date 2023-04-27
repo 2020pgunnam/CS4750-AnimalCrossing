@@ -80,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
+                <th class="th-sm"> Image
+                </th>
                 <th class="th-sm">Item Name
                 </th>
                 <th class="th-sm">Item Type
@@ -107,6 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
                 <!-- <?php var_dump($listingPrice); ?> -->
                 <tr>
+                  <td><img src=<?php echo $item['itemImageURL'];?>width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemType']; ?></td>
                   <td><?php echo $item['itemAveragePrice']; ?></td>
@@ -150,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             </tbody>
             <tfoot>
               <tr>
+                <th>Image</th>
                 <th>Item Name</th>
                 <th>Item Type</th>
                 <th>Item Average Price</th>
