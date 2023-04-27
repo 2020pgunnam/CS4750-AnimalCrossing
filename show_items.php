@@ -15,6 +15,7 @@ $items = selectAllItems();
 ?>
 
 <!-- 1. create HTML5 doctype -->
+
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -63,46 +64,46 @@ $items = selectAllItems();
     <body>
 
         <div class= "table_container">
-        <table id="items" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="th-sm">Item Name
-                </th>
-                <th class="th-sm">Item Type
-                </th>
-                <th class="th-sm">Item Average Price
-                </th>
-                <th class="th-sm">Item Image URL
-                </th>
-                <th class="th-sm">Number of Listings Available
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-                if($items == null){
-                  echo "Seems like there are no items.";}
-              ?>
-              <?php foreach ($items as $item): ?>
+          <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
+              <thead>
                 <tr>
-                  <td><?php echo $item['itemName']; ?></td>
-                  <td><?php echo $item['itemType']; ?></td>
-                  <td><?php echo $item['itemAveragePrice']; ?></td>
-                  <td><?php echo $item['itemImageURL']; ?></td>
-                  <td><?php echo $item['numListingsAvailable']; ?></td>
+                  <th class="th-sm">Item Name
+                  </th>
+                  <th class="th-sm">Item Type
+                  </th>
+                  <th class="th-sm">Item Average Price
+                  </th>
+                  <th class="th-sm">Item Image URL
+                  </th>
+                  <th class="th-sm">Number of Listings Available
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php
+                  if($items == null){
+                    echo "Seems like there are no items.";}
+                ?>
+                <?php foreach ($items as $item): ?>
+                  <tr>
+                    <td><?php echo $item['itemName']; ?></td>
+                    <td><?php echo $item['itemType']; ?></td>
+                    <td><?php echo $item['itemAveragePrice']; ?></td>
+                    <td><?php echo $item['itemImageURL']; ?></td>
+                    <td><?php echo $item['numListingsAvailable']; ?></td>
 
-              <?php endforeach; ?>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>Item Name</th>
-                <th>Item Type</th>
-                <th>Item Average Price</th>
-                <th>Item Image URL</th>
-                <th>Number of Listings Available</th>
-              </tr>
-            </tfoot>
-          </table>
+                <?php endforeach; ?>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Item Type</th>
+                  <th>Item Average Price</th>
+                  <th>Item Image URL</th>
+                  <th>Number of Listings Available</th>
+                </tr>
+              </tfoot>
+            </table>
           <script>
             $('#sortTable').DataTable();
             </script>
