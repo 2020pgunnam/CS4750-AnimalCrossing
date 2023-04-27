@@ -71,7 +71,7 @@ function selectInventory($name) {
 function getUserIDByUserName($userName)
 {
     global $db;
-    $query = "select userID from User where $userName=:userName";
+    $query = "select userID from User where userName=:userName";
     $statement = $db->prepare($query);
     $statement->bindValue(':userName', $userName);
     $statement->execute();
@@ -83,7 +83,7 @@ function getUserIDByUserName($userName)
 function getItemIDByItemName($itemName)
 {
     global $db;
-    $query = "select itemID from Items where $itemName=:itemName";
+    $query = "select itemID from Items where itemName=:itemName";
     $statement = $db->prepare($query);
     $statement->bindValue(':itemName', $itemName);
     $statement->execute();
