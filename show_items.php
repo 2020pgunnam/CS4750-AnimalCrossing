@@ -1,16 +1,21 @@
-
 <?php
 require("connect-db.php");
 // include("connect-db.php");
 
 require("animalcrossing-db.php");
 
-$listings = selectAllListings();
-// var_dump($listings)
+$items = selectAllItems();
+
+// var_dump($userID);
+// $inventory = null
+// $sellingPrices = null
+// $name = null
 
 
 ?>
+
 <!-- 1. create HTML5 doctype -->
+
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -52,7 +57,6 @@ $listings = selectAllListings();
             <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
             <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
             <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
-
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
                 <i class='bx bx-moon'></i>
               </div>
@@ -60,42 +64,47 @@ $listings = selectAllListings();
     <body>
 
         <div class= "table_container">
-        <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-              <th class="th-sm">Image
-                </th>
-                <th class="th-sm">Item Name
-                </th>
-                <th class="th-sm">Item Selling Price
-                </th>
-                <th class="th-sm">Name
-                </th>
-                <th class="th-sm">Rating
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php foreach ($listings as $item): ?>
-                <tr>
-                  <td><img src=<?php echo $item['itemImageURL'];?>width="150px"></td>
-                  <td><?php echo $item['itemName']; ?></td>
-                  <td><?php echo $item['itemSellingPrice']; ?></td>
-                  <td><?php echo $item['userName']; ?></td>
-                  <td><?php echo $item['userRating']; ?></td>
+          <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
+              <thead>
+                <tr>                  
+                  <th class="th-sm">Image
+                  </th>
+                  <th class="th-sm">Item Name
+                  </th>
+                  <th class="th-sm">Item Type
+                  </th>
+                  <th class="th-sm">Item Average Price
+                  </th>
+                  <th class="th-sm">Number of Listings Available
+                  </th>
                 </tr>
-              <?php endforeach; ?>
-            </tbody>
-            <tfoot>
-              <tr>
-                <th>Image</th>
-                <th>Item Name</th>
-                <th>Item Selling Price</th>
-                <th>Name</th>
-                <th>Rating</th>
-              </tr>
-            </tfoot>
-          </table>
+              </thead>
+              <tbody>
+                <?php
+                  if($items == null){
+                    echo "Seems like there are no items.";}
+                ?>
+                <?php foreach ($items as $item): ?>
+                  <tr>
+                    <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
+                    <td><?php echo $item['itemName']; ?></td>
+                    <td><?php echo $item['itemType']; ?></td>
+                    <td><?php echo $item['itemAveragePrice']; ?></td>
+                    <td><?php echo $item['numListingsAvailable']; ?></td>
+
+                <?php endforeach; ?>
+              </tbody>
+              <tfoot>
+                <tr>                  
+                  <th>Image</th>
+                  <th>Item Name</th>
+                  <th>Item Type</th>
+                  <th>Item Average Price</th>
+
+                  <th>Number of Listings Available</th>
+                </tr>
+              </tfoot>
+            </table>
           <script>
             $('#sortTable').DataTable();
             </script>
