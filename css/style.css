@@ -26,18 +26,6 @@
     --square-color: #EB5F0C;
     --font-family: 'AC', 'Roboto', Arial, Helvetica, sans-serif;
 }
-table.dataTable thead .sorting:after,
-table.dataTable thead .sorting:before,
-table.dataTable thead .sorting_asc:after,
-table.dataTable thead .sorting_asc:before,
-table.dataTable thead .sorting_asc_disabled:after,
-table.dataTable thead .sorting_asc_disabled:before,
-table.dataTable thead .sorting_desc:after,
-table.dataTable thead .sorting_desc:before,
-table.dataTable thead .sorting_desc_disabled:after,
-table.dataTable thead .sorting_desc_disabled:before {
-  bottom: .5em;
-}
 .night h1{
     color: white;
 }
@@ -192,28 +180,6 @@ table.dataTable thead .sorting_desc_disabled:before {
     background-position: right center; /* change the direction of the change here */
   }
 
-.btn_1 {
-    border-radius: 5px;
-    font-weight: 700;
-    margin-bottom: .5rem;
-    width: 50%;
-    height: 35px;
-    white-space: nowrap;
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    background-image: linear-gradient(to right, #F9D976 0%, #fda085 51%, #F39F86 100%);
-  }
-
-
-.signIn {
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-    width: 100%;
-    box-sizing: border-box;
-    color: white;
-    display: inline-block;
 }
 .a_links{
     padding: 0 10px 0 10px;
@@ -287,12 +253,10 @@ table.dataTable thead .sorting_desc_disabled:before {
     transition: .3s;
   } */ 
 
-  .a_links:hover::after {
+.a_links:hover::after {
     opacity: 1;
     transform: scale(1, 1);
-    
-  }
-
+}
 
 body {
     padding: 0;
@@ -321,33 +285,6 @@ body.night{
 .night .intro_title .h1{
     color: (var(--white-color));
     font-size: 64px;
-}
-
-
-.selected {
-    font-family: "Overpass", Arial, Helvetica, sans-serif;
-    display: inline-flex;
-    font-weight: 900; 
-    font-size:18px;
-    text-decoration: underline;
-    display: flex;
-
-}
-a:active{
-    color:rgb(163, 163, 163);
-}
-/* All a tags inside of a div in general */
-div a{
-    color: rgb(255, 255, 255);
-    text-decoration: none;
-}
-/* Accesses any object with the ID "dropdownMenuButton1" */
-#dropdownMenuButton1 {
-    box-shadow: none;
-}
-
-#removeClass:hover {
-    color:red;
 }
 
 .col{
@@ -569,11 +506,6 @@ br1 {
     }
   }
 
-
-#addCourse:hover {
-    text-decoration: underline;
-}
-
 .intro_container .btn{
     font-family: "AC", "Roboto", Arial, Helvetica, sans-serif;
     display: inline-flex;
@@ -634,26 +566,6 @@ br1 {
     transition: .3s;
     position: absolute;
     z-index: 10;
-}
-
-
-.btnFriend{
-    color: #fff;
-    background-color: #33658A;
-    border-color: #33658A;
-    border-radius: 5px;
-}
-
-.btnSearchFriend{
-    color: #fff;
-    background-color: #ed874e;
-    border-color: #ed874e;
-    border-radius: 10px;
-}
-
-.friendRequest {
-    font-weight: 700;
-    flex: 1 1 auto;
 }
 
 .night .friendRequest {
@@ -733,91 +645,3 @@ html {
         left: 13%;
     }
   }
-
-.classBorder {
-    font-size: 14px;
-    padding-left: 0rem;
-    padding-top: .25rem;
-    padding-bottom: .25rem;
-    color: black;
-    border-bottom: 2rem solid;
-    border-width: 3px;
-    width: 95%;
-    border-image: 
-    linear-gradient(
-    45deg, 
-    #B82E1F, 
-    #F2C17D) 1;
-    }
-
-.table {
-    caption-side: bottom;
-    border-collapse: collapse;
-    box-sizing: border-box;
-    justify-content: center;
-    width: 80%;
-    display: table;
-    border-color: var(--primary-color);
-}
-.night .table {
-    color: white;
-}
-.displayClass {
-    display: inline;
-    text-align: left;
-    padding: 0;
-}
-
-.night .displayClass {
-    color: white;
-}
-.displayClass:nth-child(1) {
-    width: 5%;
-}
-
-.displayClass:nth-child(2) {
-    width: 17%;
-}
-
-.displayClass:nth-child(3) {
-    width: 8%;
-}
-
-.displayClass:nth-child(4) {
-    width: 15%;
-}
-.displayClass:nth-child(7) {
-    width: 20%;
-}
-.displayClass:nth-child(8) {
-    width: 10%;
-}
-
-.backCart {
-    color:black;
-    display:inline-flex;
-    font-weight:bold;
-    margin-right:1.5rem;
-    float: right;
-}
-.night .backCart {
-    color:white;
-}
-
-.dropdownItem {
-    display: block;
-    width: 100%;
-    padding: 0.25rem 1rem;
-    clear: both;
-    font-weight: 400;
-    color: #212529;
-    text-align: inherit;
-    text-decoration: none;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-}
-
-.night .dropdownItem {
-    color:var(--text-color);
-}

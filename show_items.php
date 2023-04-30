@@ -41,7 +41,7 @@ $items = selectAllItems();
 
   <title>Nookazon 2.0</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="icon" type="image/png" href="/assets/leaf.png" />
+  <link rel="icon" type="image/png" href="assets/leaf.png" />
 </head>
     <script>
         if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
@@ -67,7 +67,7 @@ $items = selectAllItems();
               </div>
             </header>
     <body>
-  
+  <!-- //https://datatables.net/examples/styling/bootstrap5.html -->
         <div class= "table_container">
           <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
               <thead>

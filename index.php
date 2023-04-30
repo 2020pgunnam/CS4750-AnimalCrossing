@@ -42,7 +42,7 @@ $_SESSION['login_id'] = false;
   -->
 
   <!-- If you choose to use a favicon, specify the destination of the resource in href -->
-  <link rel="icon" type="image/png" href="/assets/leaf.png" />
+  <link rel="icon" type="image/png" href="assets/leaf.png" />
 
   <!-- if you choose to download bootstrap and host it locally -->
   <!-- <link rel="stylesheet" href="path-to-your-file/bootstrap.min.css" /> -->
