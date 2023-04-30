@@ -1,5 +1,5 @@
 <?php
-session_start(); 
+session_start();
 ?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -48,7 +48,7 @@ session_start();
 
 <div class="profileBorder">
     <h1 class="text-center" style="margin-top: 10px;"> Aloha
-    <?php if(isset($_SESSION['login_id'])); { 
+    <?php if(isset($_SESSION['login_id'])); {
         // echo $_SESSION["hello"];
         //THIS PLACE HOLDER TEXT TO SEE IF IT WORKS, REPLACE WITH THE CODE ABOVE AT THE END
         echo "hello";
@@ -56,8 +56,32 @@ session_start();
     ?>
 </h1>
 
-    <div class=btn style= "left: 52%; margin-top: 10px;"> Import</div>
-    <div class=btn style= "left: 42%; margin-top: 10px; margin-bottom: 50px;"> Export</div>
+<form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
+  <fieldset>
+                    <!-- Form Name -->
+      <legend>Form Name</legend>
+      <!-- File Button -->
+      <div class="form-group">
+          <label class="col-md-4 control-label" for="filebutton">Select File</label>
+          <div class="col-md-4">
+              <input type="file" name="file" id="file" class="input-large">
+          </div>
+      </div>
+      <!-- Button -->
+      <div class="form-group">
+          <label class="col-md-4 control-label" for="singlebutton">Import data</label>
+          <div class="col-md-4">
+              <button type="submit" id="submit" name="Import" class="btn btn-primary button-loading" data-loading-text="Loading...">Import</button>
+          </div>
+      </div>
+  </fieldset>
+  <!-- <div class="btn btn-success"  style= "left: 52%; margin-top: 10px;">
+      Import
+  </div> -->
+  <div class="btn btn-success"  style= "left: 42%; margin-top: 10px; margin-bottom: 50px;">
+        <input type="submit" name="Export" value="Export"/>
+  </div>
+</form>
     <br>
     <br>
     <br>

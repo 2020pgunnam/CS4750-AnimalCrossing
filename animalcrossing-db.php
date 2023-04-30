@@ -11,27 +11,6 @@
 //     $statement->closeCursor();
 // }
 
-function addUser($userID, $userName) {
-    global $db;
-    $query = "insert into Users values (:userID, :userName)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':userName', $userName);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
-function selectUser($userID) {
-    global $db;
-    $query = "select * from Users where $userID=:userID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
-function selectCurrent() {}
-
 function selectAllListings() {
     // db
     global $db;
@@ -89,6 +68,44 @@ function selectInventory($name) {
     return $results;
 }
 
+function insertIntoInventory($userID, $itemID, $itemCount) {
+    // db
+    global $db;
+    // query
+    $query = "insert into Inventory values (:userID, :itemID, :itemCount)";
+    // prepare
+
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':itemCount', $itemCount);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+    return $results;
+    // return results
+}
+
+function clearInventory($userID) {
+    // db
+    global $db;
+    // query
+    $query = "delete from Inventory where (userID=:userID)";
+    // prepare
+
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userID', $userID);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+    return $results;
+    // return results
+}
+
 function getUserIDByUserName($userName)
 {
     global $db;
@@ -98,7 +115,7 @@ function getUserIDByUserName($userName)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['userID'];
 }
 
 function getItemIDByItemName($itemName)
@@ -110,7 +127,7 @@ function getItemIDByItemName($itemName)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['itemID'];
 }
 
 function getListingPriceByUserItem($userID, $itemID)
@@ -123,7 +140,7 @@ function getListingPriceByUserItem($userID, $itemID)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['itemSellingPrice'];
 }
 function updateListing($itemID, $userID, $sellingPrice)
 {
@@ -172,5 +189,6 @@ function deleteListing($itemID, $userID)
     $statement->execute();
     $statement->closeCursor();
 }
+
 
 ?>

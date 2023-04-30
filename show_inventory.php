@@ -4,25 +4,25 @@ require("connect-db.php");
 
 require("animalcrossing-db.php");
 
-$inventory = selectInventory('7aceOfSpades');
-$userID = getUserIDByUserName('7aceOfSpades');
+$inventory = selectInventory('teek');
+$userID = getUserIDByUserName('teek');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
     {
       updateListing($_POST['item_listing_to_update'], $userID, $_POST['price_listing_to_update']);
-      $inventory = selectInventory('7aceOfSpades');
+      $inventory = selectInventory('teek');
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
     {
       addListing($_POST['item_listing_to_create'], $userID, $_POST['price_listing_to_create']);
-      $inventory = selectInventory('7aceOfSpades');
+      $inventory = selectInventory('teek');
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
     {
       deleteListing($_POST['listing_to_delete'], $userID);
-      $inventory = selectInventory('7aceOfSpades');
+      $inventory = selectInventory('teek');
     }
 }
 
