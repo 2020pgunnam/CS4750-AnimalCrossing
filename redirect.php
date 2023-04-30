@@ -5,10 +5,10 @@ require_once 'vendor/autoload.php';
 //https://code.tutsplus.com/tutorials/create-a-google-login-page-in-php--cms-33214
  
 // init configuration 
-$clientID = '1030996000799-etdclvjj7bouuub0k1e4bp8gfkuls672.apps.googleusercontent.com';
-$clientSecret = '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';
+$clientID = '1030996000799-v7rf1j4npmoe45s4pt2kmnapumpdiid5.apps.googleusercontent.com';
+$clientSecret = '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';
 
-$redirectUri = 'http://localhost/CS4750-AnimalCrossing/redirect.php';
+$redirectUri = 'http://localhost/CS4750-AnimalCrossing/';
   
 // create Client Request to access Google API 
 $client = new Google_Client();
