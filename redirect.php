@@ -1,9 +1,19 @@
 <?php
 require_once 'vendor/autoload.php';
 require("animalcrossing-db.php");
-session_start();
+
+// Database configuration
+define('DB_HOST', 'MySQL_Database_Host');
+define('DB_USERNAME', 'MySQL_Database_Username');
+define('DB_PASSWORD', 'MySQL_Database_Password');
+define('DB_NAME', 'MySQL_Database_Name');
+define('DB_USER_TBL', 'users');
+
+if(!session_id()){
+  session_start();
+}
 $id = session_id();
-//session_id($id);
+
 
 //tutorial used
 //https://code.tutsplus.com/tutorials/create-a-google-login-page-in-php--cms-33214
@@ -24,8 +34,9 @@ $client->addScope("profile");
  
 // authenticate code from Google OAuth Flow 
 if (isset($_GET['code'])) {
+  print('aaaa');
   $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-  $_SESSION['token'] = $client->setAccessToken($token['access_token']);
+  $_SESSION["token"] = $client->setAccessToken($token['access_token']);
   
   // get profile info 
   $google_oauth = new Google_Service_Oauth2($client);
@@ -35,8 +46,9 @@ if (isset($_GET['code'])) {
   if(selectUser($email) == null){
     addUser($email, $name);
   }
+  $_SESSION["test"] = "something else";
     
-  session_commit();
+  
  
   // now you can use this profile info to create account in your website and make user logged in. 
 } else {

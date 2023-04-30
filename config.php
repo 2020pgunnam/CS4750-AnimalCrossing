@@ -20,9 +20,9 @@ define('DB_NAME', 'MySQL_Database_Name');
 define('DB_USER_TBL', 'users');
 
 // Google API configuration
-define('GOOGLE_CLIENT_ID', 'Insert_Google_Client_ID');
-define('GOOGLE_CLIENT_SECRET', 'Insert_Google_Client_Secret');
-define('GOOGLE_REDIRECT_URL', 'Callback_URL');
+define('GOOGLE_CLIENT_ID', '1030996000799-v7rf1j4npmoe45s4pt2kmnapumpdiid5.apps.googleusercontent.com');
+define('GOOGLE_CLIENT_SECRET', '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');
+define('GOOGLE_REDIRECT_URL', 'http://localhost/CS4750-AnimalCrossing/index.php');
 
 // Start session
 if(!session_id()){
@@ -30,8 +30,8 @@ if(!session_id()){
 }
 
 // Include Google API client library
-require_once 'google-api-php-client/Google_Client.php';
-require_once 'google-api-php-client/contrib/Google_Oauth2Service.php';
+//require_once 'google-api-php-client-2.4.0/Google_Client.php';
+//require_once 'google-api-php-client/contrib/Google_Oauth2Service.php';
 
 // Call Google API
 $gClient = new Google_Client();

@@ -6,6 +6,7 @@ require("animalcrossing-db.php");
 
 session_start();
 $id = session_id();
+$_SESSION['test'] = "ah ahaha";
 
 $inventory = selectInventory('7aceOfSpades');
 $userID = getUserIDByUserName('7aceOfSpades');
