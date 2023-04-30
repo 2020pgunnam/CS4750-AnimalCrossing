@@ -83,7 +83,7 @@ $listings = selectAllListings();
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <tr>
-                  <td><img src=<?php echo $item['itemImageURL'];?>width="150px"></td>
+                  <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>

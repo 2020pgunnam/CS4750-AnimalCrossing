@@ -142,23 +142,34 @@ function getListingPriceByUserItem($userID, $itemID)
     $statement->closeCursor();
     return $result['itemSellingPrice'];
 }
+function getHighestListingID()
+{
+    global $db;
+    $query = "select MAX(listingID) AS highestListingID from Listings";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result['highestListingID'];
+}
 function updateListing($itemID, $userID, $sellingPrice)
 {
     global $db;
-    $query = "update Listings set itemSellingPrice=:sellingPrice where (itemID=:itemID and sellerID=:userID)";
-    $statement = $db->query($query);
-    $statement->bindValue(':sellingPrice', $sellingPrice);
+    $query = "update Listings set itemSellingPrice=:sellingPrice where (itemID=:itemID and sellerID=:sellerID)";
+    $statement = $db->prepare($query);
     $statement->bindValue(':itemID', $itemID);
-    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':sellerID', $userID);
+    $statement->bindValue(':sellingPrice', $sellingPrice);
     $statement->execute();
     $statement->closeCursor();
 }
 
-function addListing($itemID, $userID, $sellingPrice)
+function addListing($listingID, $userID, $itemID, $sellingPrice)
 {
     global $db;
-    $query = "insert into Listings values (:sellerID, :itemID, :itemSellingPrice)";
+    $query = "insert into Listings values (:listingID, :sellerID, :itemID, :itemSellingPrice)";
     $statement = $db->prepare($query);
+    $statement->bindValue(':listingID', $listingID);
     $statement->bindValue(':sellerID', $userID);
     $statement->bindValue(':itemID', $itemID);
     $statement->bindValue(':itemSellingPrice', $sellingPrice);
@@ -172,16 +183,17 @@ function addListing($itemID, $userID, $sellingPrice)
     $statement->closeCursor();
 }
 
+
 function deleteListing($itemID, $userID)
 {
     global $db;
-    $query = "delete from Listings where (itemID=:itemID and sellerID=:userID)";
+    $query = "delete from Listings where (itemID=:itemID and sellerID=:sellerID)";
     $statement = $db->prepare($query);
     $statement->bindValue(':sellerID', $userID);
     $statement->bindValue(':itemID', $itemID);
     $statement->execute();
     $statement->closeCursor();
-    echo 'deleted itemID';
+    //echo 'deleted itemID';
     // When deleting listing, should update for item numListingsAvailable
     $query = "update Items set numListingsAvailable=(numListingsAvailable-1) where itemID=:itemID";
     $statement = $db->prepare($query);
