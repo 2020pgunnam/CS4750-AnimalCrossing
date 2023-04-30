@@ -1,6 +1,8 @@
-<?php include("includes/a_config.php");
+<?php 
 session_start();
-$_SESSION['login_id'] = false;
+$aaa = $_SESSION['token'];
+$id = session_id();
+
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
@@ -114,6 +116,11 @@ $_SESSION['login_id'] = false;
         </div>
       </div>
 
+      <body>
+        <h1> errr </h1>
+        <?php echo $id ?>
+        <?php echo $aaa ?>
+</body>
 
 <!-- <div class="container">
   <h1>Animal Crossing</h1>

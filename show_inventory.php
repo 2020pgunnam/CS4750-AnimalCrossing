@@ -4,6 +4,9 @@ require("connect-db.php");
 
 require("animalcrossing-db.php");
 
+session_start();
+$id = session_id();
+
 $inventory = selectInventory('7aceOfSpades');
 $userID = getUserIDByUserName('7aceOfSpades');
 
@@ -199,4 +202,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
           </script>
     </body>
+
+    <body>
+        <h1> errr </h1>
+        <?php echo $id ?>
+</body>
 </html>
