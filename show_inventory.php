@@ -1,3 +1,7 @@
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 <?php
 require("connect-db.php");
 // include("connect-db.php");
@@ -5,23 +9,24 @@ require("connect-db.php");
 require("animalcrossing-db.php");
 
 $inventory = selectInventory('teek');
-$userID = getUserIDByUserName('teek');
+$userID = (int)getUserIDByUserName('teek');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
     {
-      updateListing($_POST['item_listing_to_update'], $userID, $_POST['price_listing_to_update']);
+      updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
       $inventory = selectInventory('teek');
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
     {
-      addListing($_POST['item_listing_to_create'], $userID, $_POST['price_listing_to_create']);
+      $listingID = (int)getHighestListingID() + 1;
+      addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
       $inventory = selectInventory('teek');
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
     {
-      deleteListing($_POST['listing_to_delete'], $userID);
+      deleteListing($_POST['item_listing_to_delete'], $userID);
       $inventory = selectInventory('teek');
     }
 }
@@ -97,8 +102,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 </th>
                 <th class="th-sm">Number of Listings Available
                 </th>
-                <th class="th-sm">Your Listing Price
-                </th>
                 <th class="th-sm">Edit Listing
                 </th>
               </tr>
@@ -110,9 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               ?>
               <?php foreach ($inventory as $item): ?>
                 <?php $itemID = getItemIDByItemName($item['itemName']);?>
-                <!-- <?php var_dump($itemID); ?> -->
                 <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
-                <!-- <?php var_dump($listingPrice); ?> -->
                 <tr>
                 <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
@@ -120,35 +121,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                   <td><?php echo $item['itemAveragePrice']; ?></td>
                   <td><?php echo $item['itemCount']; ?></td>
                   <td><?php echo $item['numListingsAvailable']; ?></td>
-                  <td>
-                    <!-- If the user is a seller of the item, show the current listing price -->
-                    <!-- Regardless, the user can set a new price for their new/existing listing -->
-                      <form name="mainForm" action="show_inventory.php" method="post">
-                        <input type="text" class="form-control" name="sellingPrice" required
-                          value="<?php if($listingPrice != null){ echo $listingPrice; } ?>"
-                        />
-                      </form>
-                  </td>
+
                   <!-- If the user is a seller of the item, have the option to update the price or delete the listing -->
                   <!-- If the user doesn't have a listing for the item, have the option to create a listing -->
                   <?php if($listingPrice == null) { ?>
                     <td>
-                        <form action="show_inventory.php" method=post>
-                          <input type="submit" name="actionBtn" value="Create Listing" class="btn btn-dark"/>
-                          <input type="hidden" name="item_listing_to_create" value="<?php echo $itemID; ?>"/>
-                          <input type="hidden" name="price_listing_to_create" value="<?php echo $listingPrice; ?>"/>
-                        </form>
+                      <form action="show_inventory.php" method="post">
+                        <input type="number" class="form-control" name="sellingPrice"/>
+                        <input type="submit" name="actionBtn" value="Create Listing" class="btn btn-dark"/>
+                        <input type="hidden" name="item_listing_to_create" value="<?php echo $itemID; ?>"/>
+                      </form>
                     </td>
                   <?php } else { ?>
                     <td>
                       <form action="show_inventory.php" method=post>
+                        <input type="number" class="form-control" name="sellingPrice" value="<?php echo $listingPrice; ?>"/>
                         <input type="submit" name="actionBtn" value="Update Listing" class="btn btn-dark"/>
                         <input type="hidden" name="item_listing_to_update" value="<?php echo $itemID; ?>"/>
-                        <input type="hidden" name="price_listing_to_update" value="<?php echo $listingPrice; ?>"/>
                       </form>
                       <form action="show_inventory.php" method=post>
                         <input type="submit" name="actionBtn" value="Delete Listing" class="btn btn-dark"/>
-                        <input type="hidden" name="listing_to_delete" value="<?php echo $itemID; ?>"/>
+                        <input type="hidden" name="item_listing_to_delete" value="<?php echo $itemID; ?>"/>
                       </form>
                     </td>
                   <?php } ?>
@@ -164,7 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <th>Item Average Price</th>
                 <th>Item Count</th>
                 <th>Number of Listings Available</th>
-                <th>Your Listing Price</th>
                 <th>Edit Listing</th>
               </tr>
             </tfoot>
