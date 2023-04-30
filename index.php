@@ -1,4 +1,4 @@
-<?php include("includes/a_config.php");
+<?php include("includes/config.php");
 session_start();
 $_SESSION['login_id'] = false;
 ?>
@@ -66,7 +66,7 @@ $_SESSION['login_id'] = false;
           <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
           <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
           <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
-          <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
+          <a href="profile.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
           
           <?php if(!isset($_SESSION['login_id'])); ?>
             <a href="logout.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Logout</a>
@@ -86,7 +86,8 @@ $_SESSION['login_id'] = false;
                 <div class="intro_container container">
                   <div class="intro_body">
                     <div class="intro_content" style= "margin-top: 10%;">
-                      <h1 class="intro_title"> <b>Welcome to </b> <span>Nookazon<span2>_</span2>2.0<span></h1>
+                      <h1 class="intro_title"> <b>Welcome<span2>_</span2>to</b>
+                      <h1 class="intro_title" style="font-family: 'AC', Arial; color:#51AD66;"> <span>Nookazon</span><span2>_</span2><span>2.0</span></h1>
                       <h1 class="intro_position"> The Best Animal Crossing Database</h1>
                       <br1>
                       <div class="typewriter">

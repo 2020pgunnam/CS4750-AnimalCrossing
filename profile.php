@@ -1,3 +1,6 @@
+<?php
+session_start(); 
+?>
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
@@ -30,8 +33,13 @@
             <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
             <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
             <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
-            <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
-            <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
+            <a href="profile.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
+            <?php if(!isset($_SESSION['login_id'])); ?>
+            <a href="logout.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Logout</a>
+          <?php
+            if(isset($_SESSION['login_id']));?>
+            <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login</a>
+
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
                 <i class='bx bx-moon'></i>
               </div>
@@ -39,7 +47,15 @@
     <body>
 
 <div class="profileBorder">
-    <h1 class="text-center" style="margin-top: 10px;"> Aloha<span2>_</span2>UserName!</h1>
+    <h1 class="text-center" style="margin-top: 10px;"> Aloha
+    <?php if(isset($_SESSION['login_id'])); { 
+        // echo $_SESSION["hello"];
+        //THIS PLACE HOLDER TEXT TO SEE IF IT WORKS, REPLACE WITH THE CODE ABOVE AT THE END
+        echo "hello";
+    }
+    ?>
+</h1>
+
     <div class=btn style= "left: 52%; margin-top: 10px;"> Import</div>
     <div class=btn style= "left: 42%; margin-top: 10px; margin-bottom: 50px;"> Export</div>
     <br>

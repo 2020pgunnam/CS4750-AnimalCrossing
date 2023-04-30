@@ -51,3 +51,6 @@ function setDarkMode() {
         $(document).ready(function() {
             $('#inventory').DataTable();
         });
+
+
+        

@@ -50,8 +50,13 @@ $listings = selectAllListings();
             <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
             <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
             <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
-            <a href="profile.html" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
-            <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login/Sign Up</a>
+            <a href="profile.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
+            <?php if(!isset($_SESSION['login_id'])); ?>
+            <a href="logout.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Logout</a>
+          <?php
+            if(isset($_SESSION['login_id']));?>
+            <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login</a>
+
 
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
                 <i class='bx bx-moon'></i>
