@@ -1,6 +1,9 @@
-<?php include("includes/config.php");
+<?php
+require_once "config.php";
+require('connect-db.php');
+require('animalcrossing-db.php');
 session_start();
-$_SESSION['login_id'] = false;
+
 ?>
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>

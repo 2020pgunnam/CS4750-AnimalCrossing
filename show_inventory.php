@@ -1,33 +1,28 @@
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 <?php
 require("connect-db.php");
-// include("connect-db.php");
-
 require("animalcrossing-db.php");
-
-$inventory = selectInventory('teek');
-$userID = (int)getUserIDByUserName('teek');
+session_start();
+$userID = $_SESSION['email'];
+$userName = $_SESSION['f_name'];
+$inventory = selectInventory($userName);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
     if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
     {
       updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
-      $inventory = selectInventory('teek');
+      $inventory = selectInventory($userName);
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
     {
       $listingID = (int)getHighestListingID() + 1;
       addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
-      $inventory = selectInventory('teek');
+      $inventory = selectInventory($userName);
     }
     else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
     {
-      deleteListing($_POST['item_listing_to_delete'], $userID);
-      $inventory = selectInventory('teek');
+      deleteListing($_POST['listing_to_delete'], $userID);
+      $inventory = selectInventory($userName);
     }
 }
 
