@@ -424,7 +424,7 @@ br1 {
 }
 
 .typewriter .static {
-    color: primary;
+    color: #ad8751;;
     font-size: 48px;
     font-weight: 500;
     margin-left: 25px;
@@ -432,7 +432,6 @@ br1 {
 }
 
 .night .typewriter .static {
-    color: white;
     font-size: 48px;
     font-weight: 500;
     margin-left: 25px;

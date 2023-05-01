@@ -42,7 +42,7 @@ $listings = selectAllListings();
         if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
     </script>
 
-    <header class = "headBlock"style="background:#ad8751;">
+    <header class = "headBlock">
         <div>
             <!-- <a href="/main/" -->
             <a href="./"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />

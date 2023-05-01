@@ -58,7 +58,7 @@ $_SESSION['login_id'] = false;
     if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
 </script>
 
-<header class = "headBlock" style="background:#ad8751;">
+<header class = "headBlock">
       <div>
           <!-- <a href="/main/" -->
           <a href=""> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
@@ -88,7 +88,7 @@ $_SESSION['login_id'] = false;
                       <h1 class="intro_position" style="color: #ad8751;"> The Best Animal Crossing Database</h1>
                       <br1>
                       <div class="typewriter">
-                        <div class = "static" style="color: #ad8751;"> Look for </div>
+                        <div class = "static"> Look for </div>
                         <ul class="types">
                             <li><span>Buyers</span></li>
                             <li><span>Sellers</span></li>
