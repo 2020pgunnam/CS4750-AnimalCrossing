@@ -33,7 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
   {
     $listingID = (int)getHighestListingID() + 1;
+    if(getUserRating($userID) == null){
+      addSeller($userID, $userName);
+    }
+    $userRating = (float)getUserRating($userID);
     addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
+    if(checkAdds($listingID) == null){
+      addtoAdds($userID, $userName, $listingID, $userRating, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
+    }
     $inventory = selectInventory($userID);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
@@ -80,8 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <header class = "headBlock">
       <div>
           <!-- <a href="/main/" -->
-          <a href="index.php"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
-          <a href="index.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
+          <a href=""> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
+          <a href="" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
           <?php if(isset($_SESSION['token'])) {
                       ?><a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a><?php
                   }
