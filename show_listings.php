@@ -6,7 +6,7 @@ require('animalcrossing-db.php');
 session_start();
 
 $listings = selectAllListings();
-echo count($listings);
+//echo count($listings);
 // var_dump($listings)
 
 /*
@@ -27,6 +27,7 @@ if(they buy the item){
 } */
 
 ?>
+
 <!-- 1. create HTML5 doctype -->
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -44,6 +45,7 @@ if(they buy the item){
 <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 <html lang = "en">
 <head>
+  
   <meta charset="UTF-8">
 
   <!-- 2. include meta tag to ensure proper rendering and touch zooming -->
@@ -59,7 +61,10 @@ if(they buy the item){
         if (localStorage.darkMode) document.documentElement.setAttribute("darkMode", localStorage.darkMode)
     </script>
 
+    
+
     <header class = "headBlock">
+      
       <div>
           <!-- <a href="/main/" -->
           <a href="index.php"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
@@ -90,12 +95,13 @@ if(they buy the item){
             </div>
           </header>
     <body>
+      
 
         <div class= "table_container">
         <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
-              <th class="th-sm">Image
+                <th class="th-sm">Image
                 </th>
                 <th class="th-sm">Item Name
                 </th>
@@ -110,45 +116,22 @@ if(they buy the item){
               </tr>
             </thead>
             <tbody>
+              
               <?php foreach ($listings as $item): ?>
-                <tr>
+                <tr onclick="changeElementRow(this)">
+
                   <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
-                  <td><?php echo $item['itemName']; 
-                    $_SESSION['itemBoughtID'] = $item['itemID'];
-                    $_SESSION['itemBoughtName'] = $item['itemName'];
-                  ?>
-                  <input type="hidden" id="hiddenItemId" value = <?php echo $item['itemID'] ?> >
+                  <td><?php echo $item['itemName']; ?>
+                    <input  id="hiddenItemId" value = <?php echo $item['itemID'] ?> >
                   </td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
-                  <td><?php echo $item['userName']; ?></td>
-                  <td><?php echo $item['userRating']; ?></td>
-                  <td> 
-                  <!--form action="show_inventory.php" method="post"-->
-                  <form type="POST"><input  name="Buys" value=<?php echo $item['itemID'] ?>>
-                    <input type="submit" class="btn btn-primary button-loading" value="accept">
-                  </form>
-                        <!-- <input type="submit" id='submit'name="Buy" value="Buy" class="btn btn-primary button-loading"/>
-                        <input type="hidden" name="item_getting_removed" value="   -->
-                        
-                          
-<!--                           
-                          //get rid of the item from the seller 
-                          //$sellerInventory = selectInventory($item['sellerID']);
-                          //$itemAmount = getItemCount($item['sellerID'], $itemID);
-                          //if ($itemAmount > 1) {
-                          //  minusOne($item['sellerID'], $itemID, $itemAmount);
-                          //}
-                          //else {
-                          //  deleteFromInventory($item['sellerID'], $itemID);
-                          //}
-                        
-                          //deleteListing($itemID, $item['sellerID']);
-
-                         ?>"/> -->
-                    
-                      <!--/form>
+                  <td><?php echo $item['userName']; ?>
+                    <input  id="hiddenSellerID" value = <?php echo $item['sellerID'] ?> >
                   </td>
-
+                  <td><?php echo $item['userRating']; ?></td>
+                  <td > 
+                    <button onclick="buyListing(<?php echo $item['listingID']; ?>, <?php echo $item['itemID']; ?>)" id="buttonID">Buy</button>
+                  </td>
                 </tr>
               <?php endforeach; ?>
             </tbody>
@@ -163,14 +146,37 @@ if(they buy the item){
               </tr>
             </tfoot>
           </table>
+
+          <input type="text" id="heeheee" value="unga"/>
+
+          <script>
+            function changeElementRow(x) {
+              document.getElementById("heeheee").value = x.rowIndex;
+              
+
+            }
+          </script>
+
+          <script>
+            //document.getElementById("buttonID").addEventListener("click", buyListing(this));
+            function buyListing(listingID, itemID) {
+              setTimeout(()=> {
+                alert("teehee");
+              }, 500)
+              
+              <?php 
+              //buyer has the item added into their inventory
+              insertIntoInventory($_SESSION['email'], $item['itemID'], 1);
+              ?>
+            }
+          </script>
+
+
           <script>
             $('#sortTable').DataTable();
             </script>
             </div>
 
-            <![if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
             </div>
         <script>
             let darkMode = localStorage.getItem('darkMode');
@@ -199,7 +205,8 @@ if(they buy the item){
           </script>
     </body>
 
-
+    
 
 
 </html>
+
