@@ -11,35 +11,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['filterBtn']) && ($_POST['filterBtn'] == "Filter"))
   {
-    $inventory = filterInventory('teek', $_POST['filterText']);
+    $inventory = filterInventory($userID, $_POST['filterText']);
   }
   if (!empty($_POST['resetBtn']) && ($_POST['resetBtn'] == "Reset"))
   {
-    $inventory = selectInventory('teek');
+    $inventory = selectInventory($userID);
   }
   if (!empty($_POST['asc']) && ($_POST['asc'] == "Asc"))
   {
-    $inventory = sortInventory('teek',$_POST['dropDownSort'], "ASC");
+    $inventory = sortInventory($userID,$_POST['dropDownSort'], "ASC");
   }
   if (!empty($_POST['desc']) && ($_POST['desc'] == "Desc"))
   {
-    $inventory = sortInventory('teek',$_POST['dropDownSort'], "DESC");
+    $inventory = sortInventory($userID,$_POST['dropDownSort'], "DESC");
   }
   if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
   {
     updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
-    $inventory = selectInventory('teek');
+    $inventory = selectInventory($userID);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
   {
     $listingID = (int)getHighestListingID() + 1;
     addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
-    $inventory = selectInventory('teek');
+    $inventory = selectInventory($userID);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
   {
     deleteListing($_POST['item_listing_to_delete'], $userID);
-    $inventory = selectInventory('teek');
+    $inventory = selectInventory($userID);
   }
 }
 
