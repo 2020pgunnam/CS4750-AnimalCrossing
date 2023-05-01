@@ -9,22 +9,38 @@ $inventory = selectInventory($userName);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
-    if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
-    {
-      updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
-      $inventory = selectInventory($userName);
-    }
-    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
-    {
-      $listingID = (int)getHighestListingID() + 1;
-      addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
-      $inventory = selectInventory($userName);
-    }
-    else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
-    {
-      deleteListing($_POST['listing_to_delete'], $userID);
-      $inventory = selectInventory($userName);
-    }
+  if (!empty($_POST['filterBtn']) && ($_POST['filterBtn'] == "Filter"))
+  {
+    $inventory = filterInventory('teek', $_POST['filterText']);
+  }
+  if (!empty($_POST['resetBtn']) && ($_POST['resetBtn'] == "Reset"))
+  {
+    $inventory = selectInventory('teek');
+  }
+  if (!empty($_POST['asc']) && ($_POST['asc'] == "Asc"))
+  {
+    $inventory = sortInventory('teek',$_POST['dropDownSort'], "ASC");
+  }
+  if (!empty($_POST['desc']) && ($_POST['desc'] == "Desc"))
+  {
+    $inventory = sortInventory('teek',$_POST['dropDownSort'], "DESC");
+  }
+  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
+  {
+    updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
+    $inventory = selectInventory('teek');
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
+  {
+    $listingID = (int)getHighestListingID() + 1;
+    addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
+    $inventory = selectInventory('teek');
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
+  {
+    deleteListing($_POST['item_listing_to_delete'], $userID);
+    $inventory = selectInventory('teek');
+  }
 }
 
 ?>
@@ -36,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <link href ="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.0/css/bootstrap.min.css">
 <link href ="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
 <script defer src ="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script defer src ="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script defer src ="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<!-- <script defer src ="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script defer src ="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script> -->
 <script defer src ="js/script.js"></script>
 
 <link rel="stylesheet" href='css/style.css'>
@@ -94,6 +110,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <body>
 
         <div class= "table_container">
+          <form method="POST">
+              <input name='filterText' type='text' id='arrange'/>
+              <input type='submit' class='btn btn-primary' name='filterBtn' value='Filter' />
+              <input type='submit' class='btn btn-primary' name='resetBtn' value='Reset' />
+          </form>
+          <form method="POST">
+              <select name="dropDownSort" id="sort">
+                <option value="itemName">Item Name</option>
+                <option value="itemType">Item Type</option>
+                <option value="itemAveragePrice">Item Average Price</option>
+                <option value="itemCount">Item Count</option>
+                <option value="numListingsAvailable">Number of Listings Available</option>
+              </select>
+              <input type='submit' class='btn btn-primary' name='asc' value='Asc' />
+              <input type='submit' class='btn btn-primary' name='desc' value='Desc' />
+          </form>
         <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
               <tr>
@@ -168,9 +200,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               </tr>
             </tfoot>
           </table>
-          <script>
+          <!-- <script>
             $('#sortTable').DataTable();
-            </script>
+            </script> -->
             </div>
 
             <!--[if lt IE 7]>

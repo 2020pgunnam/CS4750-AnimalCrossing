@@ -64,7 +64,7 @@ if(isset($_POST["Import"])){
       // $query = "select * from User natural join Inventory natural join Items where userName='teek'";
       // $result = mysqli_query($query);
 
-      $result = selectInventory('7aceOfSpades');
+      $result = selectInventory('teek');
       // foreach ($result as $row):
       foreach ($result as $row) {
 
