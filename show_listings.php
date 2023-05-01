@@ -4,10 +4,31 @@ require_once "config.php";
 require('connect-db.php');
 require('animalcrossing-db.php');
 session_start();
-
+$userID = $_SESSION['email'];
+$userName = $_SESSION['f_name'];
 $listings = selectAllListings();
 // var_dump($listings)
-
+if ($_SERVER['REQUEST_METHOD'] == 'POST')
+{
+  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
+  {
+    updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
+    $listings = selectAllListings();
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Buy Listing"))
+  {
+    $sellerID = sellerOfListing($listingID);
+    if(checkBuys($listingID) == null){
+      addtoBuys($userID, $userName, $listingID, $sellerID, $_POST['item_listing_to_buy'], $_POST['sellingPrice']);
+    }
+    $inventory = selectInventory($userID);
+  }
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
+  {
+    deleteListing($_POST['item_listing_to_delete'], $userID);
+    $listings = selectAllListings();
+  }
+}
 
 ?>
 <!-- 1. create HTML5 doctype -->
@@ -88,17 +109,41 @@ $listings = selectAllListings();
                 </th>
                 <th class="th-sm">Rating
                 </th>
+                <th class="th-sm">Buy/Edit Listing
+                </th>
               </tr>
             </thead>
             <tbody>
               <?php foreach ($listings as $item): ?>
+                <?php $itemID = getItemIDByItemName($item['itemName']);?>
+                <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
                 <tr>
                   <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
                   <td><?php echo $item['userRating']; ?></td>
-                </tr>
+                <?php if($listingPrice == null) { ?>
+                    <td>
+                      <form action="show_listings.php" method="post">
+                        <input type="submit" name="actionBtn" value="Buy Listing" class="btn btn-dark"/>
+                        <input type="hidden" name="item_listing_to_buy" value="<?php echo $itemID; ?>"/>
+                      </form>
+                    </td>
+                  <?php } else { ?>
+                    <td>
+                      <form action="show_listings.php" method=post>
+                        <input type="number" class="form-control" name="sellingPrice" value="<?php echo $listingPrice; ?>"/>
+                        <input type="submit" name="actionBtn" value="Update Listing" class="btn btn-dark"/>
+                        <input type="hidden" name="item_listing_to_update" value="<?php echo $itemID; ?>"/>
+                      </form>
+                      <form action="show_listings.php" method=post>
+                        <input type="submit" name="actionBtn" value="Delete Listing" class="btn btn-dark"/>
+                        <input type="hidden" name="item_listing_to_delete" value="<?php echo $itemID; ?>"/>
+                      </form>
+                    </td>
+                  <?php } ?>
+                  </tr>
               <?php endforeach; ?>
             </tbody>
             <tfoot>

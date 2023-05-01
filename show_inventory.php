@@ -51,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       addSeller($userID, $userName);
     }
     $userRating = (float)getUserRating($userID);
-    addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
     if(checkAdds($listingID) == null){
       addtoAdds($userID, $userName, $listingID, $userRating, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
     }

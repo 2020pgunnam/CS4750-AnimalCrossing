@@ -101,7 +101,7 @@ function filterInventory($userID, $value) {
     // db
     global $db;
     // query
-    $query = "select * from User natural join Inventory natural join Items where userID = :userID and (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
+    $query = "call selectInventory(:userID) where (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
     // prepare
 
     $statement = $db->prepare($query);
@@ -291,6 +291,31 @@ function checkAdds($listingID){
 function addtoAdds($userID, $userName, $listingID, $userRating, $itemID, $sellingPrice){
     global $db;
     $query = "insert into Adds values (:userID, :userName, :listingID, :userRating, :itemID, :itemSellingPrice)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':userName', $userName);
+    $statement->bindValue(':listingID', $listingID);
+    $statement->bindValue(':userRating', $userRating);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':itemSellingPrice', $sellingPrice);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function sellerOfListing($listingID){
+    global $db;
+    $query = "select userID from Listings where listingID=:listingID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':listingID', $listingID);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
+
+function addtoBuys(){
+    global $db;
+    $query = "insert into Buys values (:userID, :userName, :listingID, :sellerID, :itemID, :itemSellingPrice)";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':userName', $userName);
