@@ -11,6 +11,25 @@
 //     $statement->closeCursor();
 // }
 
+function addUser($userID, $userName) {
+    global $db;
+    $query = "insert into Users values (:userID, :userName)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':userName', $userName);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+function selectUser($userID) {
+    global $db;
+    $query = "select * from Users where $userID=:userID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 function selectAllListings() {
     // db
     global $db;
