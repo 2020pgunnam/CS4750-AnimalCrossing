@@ -7,7 +7,7 @@ if(!isset($_SESSION['token'])){
 }
 
 require('./config.php');
-$client = new Google\Client();
+$client = new Google_Client();
 $client->setAccessToken($_SESSION['token']);
 # Revoking the google access token
 $client->revokeToken();
