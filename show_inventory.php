@@ -29,17 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   {
     updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
     $inventory = selectInventory($userID);
+    header("Refresh: 0");
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
   {
     $listingID = (int)getHighestListingID() + 1;
     addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
     $inventory = selectInventory($userID);
+    header("Refresh: 0");
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
   {
     deleteListing($_POST['item_listing_to_delete'], $userID);
     $inventory = selectInventory($userID);
+    header("Refresh: 0");
   }
 }
 
@@ -160,6 +163,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                   <td><?php echo $item['itemAveragePrice']; ?></td>
                   <td><?php echo $item['itemCount']; ?></td>
                   <td><?php echo $item['numListingsAvailable']; ?></td>
+                  <?php  
+                  $item['sellerID'] = $_SESSION['email'];
+                  ?>
 
                   <!-- If the user is a seller of the item, have the option to update the price or delete the listing -->
                   <!-- If the user doesn't have a listing for the item, have the option to create a listing -->

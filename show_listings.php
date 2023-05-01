@@ -8,6 +8,22 @@ session_start();
 $listings = selectAllListings();
 // var_dump($listings)
 
+/*
+if(they buy the item){
+  //add the item to the buyer
+  insertIntoInventory($_SESSION['email'], $itemID, 1);
+  //get rid of the item from the seller 
+  $sellerInventory = selectInventory($item['userName']);
+  $itemAmount = getItemCount($item['userName'], $itemID);
+  if ($itemAmount > 1) {
+    minusOne($item['userName'], $itemID, $itemAmount);
+  }
+  else {
+    deleteFromInventory($item['userName'], $itemID);
+  }
+
+  deleteListing($itemID, $item['userName']);
+} */
 
 ?>
 <!-- 1. create HTML5 doctype -->
@@ -88,6 +104,8 @@ $listings = selectAllListings();
                 </th>
                 <th class="th-sm">Rating
                 </th>
+                <th class="th-sm">Buy
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -98,6 +116,27 @@ $listings = selectAllListings();
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
                   <td><?php echo $item['userRating']; ?></td>
+                  <td> 
+                  <form action="show_listings.php" method="post">
+                        <input type="button" name="actionBtn" value="Buy" class="btn btn-dark"/>
+                        <input type="hidden" name="item_getting_removied" value="<?php 
+                          insertIntoInventory($_SESSION['email'], $itemID, 1);
+                          //get rid of the item from the seller 
+                          $sellerInventory = selectInventory($item['sellerID']);
+                          $itemAmount = getItemCount($item['sellerID'], $itemID);
+                          if ($itemAmount > 1) {
+                            minusOne($item['sellerID'], $itemID, $itemAmount);
+                          }
+                          else {
+                            deleteFromInventory($item['sellerID'], $itemID);
+                          }
+                        
+                          deleteListing($itemID, $item['sellerID']);
+
+                         ?>"/>
+                      </form>
+                  </td>
+
                 </tr>
               <?php endforeach; ?>
             </tbody>
@@ -108,6 +147,7 @@ $listings = selectAllListings();
                 <th>Item Selling Price</th>
                 <th>Name</th>
                 <th>Rating</th>
+                <th>Buy</th>
               </tr>
             </tfoot>
           </table>

@@ -137,6 +137,21 @@ function sortInventory($name, $value, $order) {
     return $results;
 }
 
+function getItemCount($userID, $itemID)
+{
+    global $db;
+    $query = "SELECT itemCount from Inventory where $userID = :userID AND $itemID = :itemID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+    return $results;
+
+}
+
 
 function insertIntoInventory($userID, $itemID, $itemCount) {
     // db
@@ -156,6 +171,31 @@ function insertIntoInventory($userID, $itemID, $itemCount) {
     $statement->closeCursor();
     return $results;
     // return results
+}
+
+function deleteFromInventory($userID, $itemID)
+{
+    global $db;
+    // query
+    $query = "DELETE FROM Inventory where (:itemID=$itemID) into Inventory values (:userID, :itemID)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $results = $statement->execute();
+    $statement->closeCursor();
+}
+
+function minusOne($userID, $itemID, $itemCount)
+{
+    global $db;
+    $query = "UPDATE Inventory SET $itemCount = $itemCount-1 WHERE $itemID==:itemID AND $itemCount > 1";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':itemCount', $itemCount);
+    $results = $statement->execute();
+    $statement->closeCursor();
+
 }
 
 function clearInventory($userID) {
