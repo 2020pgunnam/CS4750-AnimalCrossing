@@ -1,9 +1,9 @@
 
 <?php
-require("connect-db.php");
-// include("connect-db.php");
-
-require("animalcrossing-db.php");
+require_once "config.php";
+require('connect-db.php');
+require('animalcrossing-db.php');
+session_start();
 
 $listings = selectAllListings();
 // var_dump($listings)
@@ -43,24 +43,35 @@ $listings = selectAllListings();
     </script>
 
     <header class = "headBlock">
-        <div>
-            <!-- <a href="/main/" -->
-            <a href="./"> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
-            <a href="./" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
-            <a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a>
-            <a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a>
-            <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
-            <a href="profile.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a>
-            <?php if(!isset($_SESSION['login_id'])); ?>
-            <a href="logout.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Logout</a>
-          <?php
-            if(isset($_SESSION['login_id']));?>
-            <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login</a>
-
-            <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
-                <i class='bx bx-moon'></i>
-              </div>
-            </header>
+      <div>
+          <!-- <a href="/main/" -->
+          <a href=""> <img src="assets/leaf.png" class="d-inline-block ms-5 pb-2" style="width:30px; height:40px;" alt="Nookazaon 2.0" />
+          <a href="" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Nookazon 2.0</a>
+          <?php if(isset($_SESSION['token'])) {
+                      ?><a href="show_inventory.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Inventory</a><?php
+                  }
+              ?>
+          <?php if(isset($_SESSION['token'])) {
+                      ?><a href="show_listings.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Listings</a><?php
+                  }
+              ?>
+          <a href="show_items.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Items</a>
+          <?php if(isset($_SESSION['token'])) {
+                      ?><a href="Profile.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Profile</a><?php
+                  }
+              ?>
+          <?php if(isset($_SESSION['token'])) {
+                      ?><a href="logout.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Logout</a><?php
+                  }
+              ?>
+          <?php if(!isset($_SESSION['token'])) {
+                      ?><a href="redirect.php" class="a_links" style= "margin-top: 3px; margin-right: 5px;"></i>Login</a><?php
+                  }
+              ?>
+          <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
+              <i class='bx bx-moon'></i>
+            </div>
+          </header>
     <body>
 
         <div class= "table_container">

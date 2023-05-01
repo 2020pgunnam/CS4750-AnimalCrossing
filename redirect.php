@@ -96,7 +96,7 @@ rgba(0, 0, 0, .2);
       $clientID = '1030996000799-v7rf1j4npmoe45s4pt2kmnapumpdiid5.apps.googleusercontent.com';
       $clientSecret = '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';
 
-      $redirectUri = 'http://localhost/cs4750/CS4750-AnimalCrossing/redirect.php';
+      $redirectUri = 'http://localhost/CS4750-AnimalCrossing/redirect.php';
         
       // create Client Request to access Google API 
       $client = new Google_Client();
