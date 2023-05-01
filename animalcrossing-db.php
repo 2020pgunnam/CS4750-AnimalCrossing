@@ -101,7 +101,7 @@ function filterInventory($userID, $value) {
     // db
     global $db;
     // query
-    $query = "call selectInventory(:userID) where (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
+    $query = "select * from User natural join Inventory natural join Items where userID=:userID and (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
     // prepare
 
     $statement = $db->prepare($query);
@@ -234,6 +234,18 @@ function getListingPriceByUserItem($userID, $itemID)
     return $result;
 }
 
+function getListingIDBySellerItem($sellerID, $itemID){
+    global $db;
+    $query = "select listingID from (User join Listings on sellerID=userID) where (sellerID=:sellerID and itemID=:itemID)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':sellerID', $sellerID);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->execute();
+    $result = $statement->fetch();
+    $statement->closeCursor();
+    return $result;
+}
+
 function getHighestListingID()
 {
     global $db;
@@ -304,7 +316,7 @@ function addtoAdds($userID, $userName, $listingID, $userRating, $itemID, $sellin
 
 function sellerOfListing($listingID){
     global $db;
-    $query = "select userID from Listings where listingID=:listingID";
+    $query = "select sellerID from Listings where listingID=:listingID";
     $statement = $db->prepare($query);
     $statement->bindValue(':listingID', $listingID);
     $statement->execute();
@@ -313,14 +325,14 @@ function sellerOfListing($listingID){
     return $result;
 }
 
-function addtoBuys(){
+function addtoBuys($userID, $userName, $listingID, $sellerID, $itemID, $sellingPrice){
     global $db;
     $query = "insert into Buys values (:userID, :userName, :listingID, :sellerID, :itemID, :itemSellingPrice)";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':userName', $userName);
     $statement->bindValue(':listingID', $listingID);
-    $statement->bindValue(':userRating', $userRating);
+    $statement->bindValue(':sellerID', $sellerID);
     $statement->bindValue(':itemID', $itemID);
     $statement->bindValue(':itemSellingPrice', $sellingPrice);
     $statement->execute();

@@ -17,11 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Buy Listing"))
   {
-    $sellerID = sellerOfListing($listingID);
-    if(checkBuys($listingID) == null){
-      addtoBuys($userID, $userName, $listingID, $sellerID, $_POST['item_listing_to_buy'], $_POST['sellingPrice']);
-    }
-    $inventory = selectInventory($userID);
+    addtoBuys($userID, $userName, $_POST['item_to_buy'], $_POST['seller_buy_from'], $_POST['item_to_buy'], $_POST['price_bought']);
+    $listings = selectAllListings();
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
   {
@@ -116,7 +113,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <?php $itemID = getItemIDByItemName($item['itemName']);?>
+                <?php $sellerID = getUserIDByUserName($item['userName']); ?>
                 <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
+                <?php $listingID = getListingIDBySellerItem($sellerID, $itemID); ?>
                 <tr>
                   <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
@@ -127,7 +126,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                     <td>
                       <form action="show_listings.php" method="post">
                         <input type="submit" name="actionBtn" value="Buy Listing" class="btn btn-dark"/>
-                        <input type="hidden" name="item_listing_to_buy" value="<?php echo $itemID; ?>"/>
+                        <input type="hidden" name="listing_to_buy" value="<?php echo $listingID; ?>"/>
+                        <input type="hidden" name="item_to_buy" value="<?php echo $itemID; ?>"/>
+                        <input type="hidden" name="seller_buy_from" value="<?php echo $sellerID; ?>"/>
+                        <input type="hidden" name="price_bought" value="<?php echo $item['itemSellingPrice']; ?>"/>
                       </form>
                     </td>
                   <?php } else { ?>
