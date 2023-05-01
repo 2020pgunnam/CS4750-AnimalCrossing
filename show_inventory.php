@@ -133,8 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         <div class= "table_container">
           <form method="POST">
               <input name='filterText' type='text' id='arrange'/>
-              <input type='submit' class='btn btn-primary' name='filterBtn' value='Filter' />
-              <input type='submit' class='btn btn-primary' name='resetBtn' value='Reset' />
+              <input type='submit' class='btn btn-primary' style="height: 35px; width: 60px;" name='filterBtn' value='Filter' />
+              <input type='submit' class='btn btn-primary' style="height: 35px; width: 60px;" name='resetBtn' value='Reset' />
           </form>
           <form method="POST">
               <select name="dropDownSort" id="sort">
@@ -144,8 +144,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                 <option value="itemCount">Item Count</option>
                 <option value="numListingsAvailable">Number of Listings Available</option>
               </select>
-              <input type='submit' class='btn btn-primary' name='asc' value='Asc' />
-              <input type='submit' class='btn btn-primary' name='desc' value='Desc' />
+              <input type='submit' class='btn btn-primary' style="height: 35px; width: 60px;" name='asc' value='Asc' />
+              <input type='submit' class='btn btn-primary' style="height: 35px; width: 60px;" name='desc' value='Desc' />
           </form>
         <table id="inventory" class="table table-striped table-bordered table-hover table-sm" cellspacing="0" width="100%">
             <thead>
