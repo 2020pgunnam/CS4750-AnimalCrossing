@@ -32,6 +32,16 @@ function addUser($userID, $userName) {
     $statement->closeCursor();
 }
 
+function addBuyer($userID, $userName) {
+    global $db;
+    $query = "insert into Buyer values (:userID, :userName)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':userName', $userName);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
 function selectAllListings() {
     // db
     global $db;
@@ -154,6 +164,9 @@ function insertIntoInventory($userID, $itemID, $itemCount) {
     $results = $statement->execute();
     // close cursor
     $statement->closeCursor();
+
+    addInventoryToContainsTable($userID);
+    addInventoryToHasTable($userID);
     return $results;
     // return results
 }
@@ -163,15 +176,23 @@ function clearInventory($userID) {
     global $db;
     // query
     $query = "delete from Inventory where (userID=:userID)";
-    // prepare
-
     $statement = $db->prepare($query);
-
     $statement->bindValue(':userID', $userID);
-    // execute
     $results = $statement->execute();
-    // close cursor
     $statement->closeCursor();
+
+    $query = "delete from Has where (userID=:userID)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $results = $statement->execute();
+    $statement->closeCursor();
+
+    $query = "delete from Contains where (userID=:userID)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $results = $statement->execute();
+    $statement->closeCursor();
+
     return $results;
     // return results
 }
@@ -233,6 +254,27 @@ function updateListing($itemID, $userID, $sellingPrice)
     $statement->bindValue(':sellingPrice', $sellingPrice);
     $statement->execute();
     $statement->closeCursor();
+}
+
+function addListing($listingID, $userID, $itemID, $sellingPrice)
+{
+    global $db;
+    $query = "insert into Listings values (:listingID, :sellerID, :itemID, :itemSellingPrice)";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':listingID', $listingID);
+    $statement->bindValue(':sellerID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':itemSellingPrice', $sellingPrice);
+    $statement->execute();
+    $statement->closeCursor();
+    // When creating new listing, should update for item numListingsAvailable
+    $query = "update Items set numListingsAvailable=(numListingsAvailable+1) where itemID=:itemID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->execute();
+    $statement->closeCursor();
+    // When creating a new listing, a seller adds a listing (Adds table)
+    // When creating a new listing, if a user is not already a seller, they become a seller
 }
 
 function checkAdds($listingID){
@@ -322,6 +364,7 @@ function generateRandomizedInventory($userID)
             $statement->bindValue(':itemID', $itemID);
             $statement->bindValue(':itemCount', $itemCount);
             $statement->execute();
+
             $inventory[] = array(
                 'itemID' => $itemID,
                 'itemCount' => $itemCount
@@ -331,6 +374,90 @@ function generateRandomizedInventory($userID)
     $results = $statement->fetchAll();
     $statement->closeCursor();
     return $results;
+}
+
+function addInventoryToHasTable($userID) {
+    global $db;
+    $userName = $_SESSION['f_name'];
+
+    $query = "SELECT * FROM Inventory WHERE userID = :userID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->execute();
+    $inventory = $statement->fetchAll();
+    $statement->closeCursor();
+
+    // loop through the inventory and add to the Has table
+    foreach ($inventory as $item) {
+        $itemID = $item['itemID'];
+
+        // check if item already exists in Has table
+        $query = "SELECT COUNT(*) FROM Has WHERE userID = :userID AND itemID = :itemID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':userID', $userID);
+        $statement->bindValue(':itemID', $itemID);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+
+        if ($count == 0) {
+            $query = "INSERT INTO Has (userID, itemID, userName, itemCount) VALUES (:userID, :itemID, :userName, :itemCount)";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userID', $userID);
+            $statement->bindValue(':itemID', $itemID);
+            $statement->bindValue(':userName', $userName);
+            $statement->bindValue(':itemCount', $item['itemCount']);
+            $statement->execute();
+            $statement->closeCursor();
+        }
+    }
+}
+
+function addInventoryToContainsTable($userID)
+{
+    global $db;
+
+    $query = "SELECT * FROM Inventory WHERE userID=:userID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->execute();
+    $inventory = $statement->fetchAll();
+    $statement->closeCursor();
+
+    // loop through and add
+    foreach ($inventory as $item) {
+        $itemID = $item['itemID'];
+        $query = "SELECT * FROM Items WHERE itemID=:itemID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':itemID', $itemID);
+        $statement->execute();
+        $itemData = $statement->fetch();
+        $statement->closeCursor();
+
+        // check if already exists
+        $query = "SELECT COUNT(*) FROM Contains WHERE userID=:userID AND itemID=:itemID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':userID', $userID);
+        $statement->bindValue(':itemID', $itemID);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+        $statement->closeCursor();
+
+        if ($count == 0) {
+            $query = "INSERT INTO Contains (userID, itemID, itemCount, itemName, itemType, itemAveragePrice, itemImageURL, numListingsAvailable) VALUES (:userID, :itemID, :itemCount, :itemName, :itemType, :itemAveragePrice, :itemImageURL, :numListingsAvailable)";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userID', $userID);
+            $statement->bindValue(':itemID', $itemID);
+            $statement->bindValue(':itemCount', $item['itemCount']);
+            $statement->bindValue(':itemName', $itemData['itemName']);
+            $statement->bindValue(':itemType', $itemData['itemType']);
+            $statement->bindValue(':itemAveragePrice', $itemData['itemAveragePrice']);
+            $statement->bindValue(':itemImageURL', $itemData['itemImageURL']);
+            $statement->bindValue(':numListingsAvailable', $itemData['numListingsAvailable']);
+            $statement->execute();
+            $statement->closeCursor();
+        }
+    }
 }
 
 ?>

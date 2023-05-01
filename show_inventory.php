@@ -1,12 +1,12 @@
 <?php
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
-
 require_once "config.php";
 require('connect-db.php');
 require('animalcrossing-db.php');
 session_start();
 $userID = $_SESSION['email'];
 $userName = $_SESSION['f_name'];
+
+// clearInventory($userID);
 
 // check if inventory is null
 $previnventory = selectInventory($userName);
@@ -17,6 +17,8 @@ if ($previnventory == NULL)
   generateRandomizedInventory($userID);
 }
 // set randomized inventory to inventory
+addInventoryToHasTable($userID);
+addInventoryToContainsTable($userID);
 $inventory = selectInventory($userName);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
@@ -49,6 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
       addSeller($userID, $userName);
     }
     $userRating = (float)getUserRating($userID);
+    addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
     if(checkAdds($listingID) == null){
       addtoAdds($userID, $userName, $listingID, $userRating, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
     }
