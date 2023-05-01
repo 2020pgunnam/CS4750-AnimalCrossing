@@ -7,6 +7,11 @@ $userID = $_SESSION['email'];
 $userName = $_SESSION['f_name'];
 $inventory = selectInventory($userName);
 
+if(isset($_POST["Buys"])) {
+  echo $_SESSION['itemBoughtName'];
+  insertIntoInventory($_SESSION['email'], $_SESSION['itemBoughtID'], 1);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['filterBtn']) && ($_POST['filterBtn'] == "Filter"))

@@ -6,6 +6,7 @@ require('animalcrossing-db.php');
 session_start();
 
 $listings = selectAllListings();
+echo count($listings);
 // var_dump($listings)
 
 /*
@@ -112,29 +113,40 @@ if(they buy the item){
               <?php foreach ($listings as $item): ?>
                 <tr>
                   <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
-                  <td><?php echo $item['itemName']; ?></td>
+                  <td><?php echo $item['itemName']; 
+                    $_SESSION['itemBoughtID'] = $item['itemID'];
+                    $_SESSION['itemBoughtName'] = $item['itemName'];
+                  ?>
+                  <input type="hidden" id="hiddenItemId" value = <?php echo $item['itemID'] ?> >
+                  </td>
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
                   <td><?php echo $item['userRating']; ?></td>
                   <td> 
-                  <form action="show_listings.php" method="post">
-                        <input type="button" name="actionBtn" value="Buy" class="btn btn-dark"/>
-                        <input type="hidden" name="item_getting_removied" value="<?php 
-                          insertIntoInventory($_SESSION['email'], $itemID, 1);
-                          //get rid of the item from the seller 
-                          $sellerInventory = selectInventory($item['sellerID']);
-                          $itemAmount = getItemCount($item['sellerID'], $itemID);
-                          if ($itemAmount > 1) {
-                            minusOne($item['sellerID'], $itemID, $itemAmount);
-                          }
-                          else {
-                            deleteFromInventory($item['sellerID'], $itemID);
-                          }
+                  <!--form action="show_inventory.php" method="post"-->
+                  <form type="POST"><input  name="Buys" value=<?php echo $item['itemID'] ?>>
+                    <input type="submit" class="btn btn-primary button-loading" value="accept">
+                  </form>
+                        <!-- <input type="submit" id='submit'name="Buy" value="Buy" class="btn btn-primary button-loading"/>
+                        <input type="hidden" name="item_getting_removed" value="   -->
                         
-                          deleteListing($itemID, $item['sellerID']);
+                          
+<!--                           
+                          //get rid of the item from the seller 
+                          //$sellerInventory = selectInventory($item['sellerID']);
+                          //$itemAmount = getItemCount($item['sellerID'], $itemID);
+                          //if ($itemAmount > 1) {
+                          //  minusOne($item['sellerID'], $itemID, $itemAmount);
+                          //}
+                          //else {
+                          //  deleteFromInventory($item['sellerID'], $itemID);
+                          //}
+                        
+                          //deleteListing($itemID, $item['sellerID']);
 
-                         ?>"/>
-                      </form>
+                         ?>"/> -->
+                    
+                      <!--/form>
                   </td>
 
                 </tr>
@@ -156,7 +168,7 @@ if(they buy the item){
             </script>
             </div>
 
-            <!--[if lt IE 7]>
+            <![if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
             </div>
@@ -186,4 +198,8 @@ if(they buy the item){
 
           </script>
     </body>
+
+
+
+
 </html>
