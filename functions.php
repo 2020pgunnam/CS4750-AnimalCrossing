@@ -4,7 +4,9 @@
 
 require("connect-db.php");
 require("animalcrossing-db.php");
-
+session_start();
+$userID = $_SESSION['email'];
+$userName = $_SESSION['f_name'];
 
 if(isset($_POST["Import"])){
 
@@ -13,8 +15,8 @@ if(isset($_POST["Import"])){
    {
       $file = fopen($filename, "r");
       $header = fgetcsv($file, 10000, ",");
-      $userID = getUserIDByUserName("teek");
-      clearInventory((int)$userID);
+      // $userID = getUserIDByUserName("teek");
+      clearInventory($userID);
       while (($getData = fgetcsv($file, 10000, ",")) !== FALSE)
        {
          // $sql = "INSERT into employeeinfo (emp_id,firstname,lastname,email,reg_date)
@@ -31,7 +33,7 @@ if(isset($_POST["Import"])){
                window.location = \"./\"
                </script>";
          }
-         $result = insertIntoInventory((int)$userID, (int)$itemID, (int)$getData[1]);
+         $result = insertIntoInventory($userID, (int)$itemID, (int)$getData[1]);
         if(!isset($result))
         {
           echo "<script type=\"text/javascript\">
@@ -64,7 +66,7 @@ if(isset($_POST["Import"])){
       // $query = "select * from User natural join Inventory natural join Items where userName='teek'";
       // $result = mysqli_query($query);
 
-      $result = selectInventory('teek');
+      $result = selectInventory($userID);
       // foreach ($result as $row):
       foreach ($result as $row) {
 
