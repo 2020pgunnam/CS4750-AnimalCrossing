@@ -97,15 +97,15 @@ function selectInventory($name) {
     // return results
     return $results;
 }
-function filterInventory($name, $value) {
+function filterInventory($userID, $value) {
     // db
     global $db;
     // query
-    $query = "select * from User natural join Inventory natural join Items where username = :name and (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
+    $query = "select * from User natural join Inventory natural join Items where userID = :userID and (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
     // prepare
 
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $name);
+    $statement->bindValue(':userID', $userID);
     $statement->bindValue(':value', $value);
     // execute
     $statement->execute();
@@ -117,25 +117,25 @@ function filterInventory($name, $value) {
     // return results
     return $results;
 }
-function sortInventory($name, $value, $order) {
+function sortInventory($userID, $value, $order) {
     // db
     global $db;
     // query
     if ($value == "itemName") {
-        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemName $order";
+        $query = "select * from User natural join Inventory natural join Items where userID=:userID order by itemName $order";
     } elseif ($value == "itemType") {
-        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemType $order";
+        $query = "select * from User natural join Inventory natural join Items where userID=:userID order by itemType $order";
     } elseif ($value == "itemAveragePrice") {
-        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemAveragePrice $order";
+        $query = "select * from User natural join Inventory natural join Items where userID=:userID order by itemAveragePrice $order";
     } elseif ($value == "itemCount") {
-        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemCount $order";
+        $query = "select * from User natural join Inventory natural join Items where userID=:userID order by itemCount $order";
     } elseif ($value == "numListingsAvailable") {
-        $query = "select * from User natural join Inventory natural join Items where userName=:name order by numListingsAvailable $order";
+        $query = "select * from User natural join Inventory natural join Items where userID=:userID order by numListingsAvailable $order";
     }
     // prepare
 
     $statement = $db->prepare($query);
-    $statement->bindValue(':name', $name);
+    $statement->bindValue(':userID', $userID);
     // execute
     $statement->execute();
     // retrieve
