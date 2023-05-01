@@ -220,8 +220,9 @@ function getListingPriceByUserItem($userID, $itemID)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result['itemSellingPrice'];
+    return $result;
 }
+
 function getHighestListingID()
 {
     global $db;
@@ -330,5 +331,37 @@ function deleteListing($itemID, $userID)
     $statement->closeCursor();
 }
 
+function generateRandomizedInventory($userID)
+{
+    global $db;
+    $inventory = array();
+    for ($i = 0; $i < 10; $i++) {
+        $itemID = rand(1, 20); // select a random item ID
+        // check if inventory item already exists
+        $query = "select count(*) from Inventory where userID=:userID and itemID=:itemID";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':userID', $userID);
+        $statement->bindValue(':itemID', $itemID);
+        $statement->execute();
+        $count = $statement->fetchColumn();
+
+        if ($count == 0) {
+            $itemCount = rand(1, 10);
+            $query = "insert into Inventory values (:userID, :itemID, :itemCount)";
+            $statement = $db->prepare($query);
+            $statement->bindValue(':userID', $userID);
+            $statement->bindValue(':itemID', $itemID);
+            $statement->bindValue(':itemCount', $itemCount);
+            $statement->execute();
+            $inventory[] = array(
+                'itemID' => $itemID,
+                'itemCount' => $itemCount
+            );
+        }
+    }
+    $results = $statement->fetchAll();
+    $statement->closeCursor();
+    return $results;
+}
 
 ?>

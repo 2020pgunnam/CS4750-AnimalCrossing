@@ -1,10 +1,22 @@
 <?php
+ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+
 require_once "config.php";
 require('connect-db.php');
 require('animalcrossing-db.php');
 session_start();
 $userID = $_SESSION['email'];
 $userName = $_SESSION['f_name'];
+
+// check if inventory is null
+$previnventory = selectInventory($userName);
+if ($previnventory == NULL)
+{
+  // clear just in case, generate random inventory
+  clearInventory($userID);
+  generateRandomizedInventory($userID);
+}
+// set randomized inventory to inventory
 $inventory = selectInventory($userName);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
