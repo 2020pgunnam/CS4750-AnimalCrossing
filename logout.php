@@ -2,7 +2,7 @@
 session_start();
 
 if(!isset($_SESSION['token'])){
-  header('Location: redirect.php');
+  header('Location: index.php');
   exit;
 }
 
@@ -24,6 +24,6 @@ if (ini_get("session.use_cookies")) {
 }
 
 session_destroy();
-header("Location: redirect.php");
+header("Location: index.php");
 exit;
 ?>
