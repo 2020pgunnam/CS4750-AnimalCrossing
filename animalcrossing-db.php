@@ -32,16 +32,6 @@ function addUser($userID, $userName) {
     $statement->closeCursor();
 }
 
-function addBuyer($userID, $userName) {
-    global $db;
-    $query = "insert into Buyer values (:userID, :userName)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':userID', $userID);
-    $statement->bindValue(':userName', $userName);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
 function selectAllListings() {
     // db
     global $db;
@@ -243,27 +233,6 @@ function updateListing($itemID, $userID, $sellingPrice)
     $statement->bindValue(':sellingPrice', $sellingPrice);
     $statement->execute();
     $statement->closeCursor();
-}
-
-function addListing($listingID, $userID, $itemID, $sellingPrice)
-{
-    global $db;
-    $query = "insert into Listings values (:listingID, :sellerID, :itemID, :itemSellingPrice)";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':listingID', $listingID);
-    $statement->bindValue(':sellerID', $userID);
-    $statement->bindValue(':itemID', $itemID);
-    $statement->bindValue(':itemSellingPrice', $sellingPrice);
-    $statement->execute();
-    $statement->closeCursor();
-    // When creating new listing, should update for item numListingsAvailable
-    $query = "update Items set numListingsAvailable=(numListingsAvailable+1) where itemID=:itemID";
-    $statement = $db->prepare($query);
-    $statement->bindValue(':itemID', $itemID);
-    $statement->execute();
-    $statement->closeCursor();
-    // When creating a new listing, a seller adds a listing (Adds table)
-    // When creating a new listing, if a user is not already a seller, they become a seller
 }
 
 function checkAdds($listingID){

@@ -40,7 +40,6 @@ if (isset($_GET['code'])):
 
   if(checkEmail($email) == null){
     addUser($email, $f_name);
-    addBuyer($email, $f_name);
   }
   header('Location: index.php');
   exit;
