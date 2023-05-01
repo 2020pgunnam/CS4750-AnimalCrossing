@@ -19,7 +19,7 @@ if ($previnventory == NULL)
 // set randomized inventory to inventory
 addInventoryToHasTable($userID);
 addInventoryToContainsTable($userID);
-$inventory = selectInventory($userName);
+$inventory = selectInventory($userID);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
