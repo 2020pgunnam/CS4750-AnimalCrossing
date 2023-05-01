@@ -48,12 +48,7 @@ session_start();
 
 <div class="profileBorder">
     <h1 class="text-center" style="margin-top: 10px;"> Aloha
-    <?php if(isset($_SESSION['login_id'])); {
-        // echo $_SESSION["hello"];
-        //THIS PLACE HOLDER TEXT TO SEE IF IT WORKS, REPLACE WITH THE CODE ABOVE AT THE END
-        echo "hello";
-    }
-    ?>
+    <?php echo $_SESSION['id']?>
 </h1>
 
 <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
