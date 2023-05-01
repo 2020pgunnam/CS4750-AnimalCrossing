@@ -48,13 +48,11 @@ session_start();
 
 <div class="profileBorder">
     <h1 class="text-center" style="margin-top: 10px;"> Aloha
-    <?php echo $_SESSION['id']?>
+    <?php echo $_SESSION['f_name'];?> <?php echo $_SESSION['l_name'];?>
 </h1>
 
 <form class="form-horizontal" action="functions.php" method="post" name="upload_excel" enctype="multipart/form-data">
   <fieldset>
-                    <!-- Form Name -->
-      <legend>Form Name</legend>
       <!-- File Button -->
       <div class="form-group">
           <label class="col-md-4 control-label" for="filebutton">Select File</label>
@@ -81,11 +79,7 @@ session_start();
     <br>
     <br>
     <br>
-    <p class='my-1 fw-bold d-inline-block'>Email: Placeholder</a> </p>
-    <br>
-    <p class='my-1 fw-bold d-inline-block'> <b>Listings: </b> the goods</p>
-    <br>
-    <p class='my-1 d-inline-block'> <b> Wishlist: </b> i want</p>
+    <p class='my-1 fw-bold d-inline-block'>Email: <?php echo $_SESSION['email'];?></a> </p>
     </div>
 
             </div>
