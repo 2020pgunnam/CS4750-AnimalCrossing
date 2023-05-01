@@ -82,7 +82,7 @@ function selectInventory($userID) {
     // db
     global $db;
     // query
-    $query = "select * from User natural join Inventory natural join Items where userID=:userID";
+    $query = "call selectInventory(:userID)";
     // prepare
 
     $statement = $db->prepare($query);
