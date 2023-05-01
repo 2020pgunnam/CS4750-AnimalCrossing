@@ -78,6 +78,56 @@ function selectInventory($name) {
     $statement = $db->prepare($query);
 
     $statement->bindValue(':name', $name);
+    $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
+    $statement->closeCursor();
+
+    // return results
+    return $results;
+}
+function filterInventory($name, $value) {
+    // db
+    global $db;
+    // query
+    $query = "select * from User natural join Inventory natural join Items where username = :name and (itemimageurl like :value or itemname like :value or itemtype like :value or itemaverageprice like :value or itemcount like :value or numlistingsavailable like :value)";
+    // prepare
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':value', $value);
+    // execute
+    $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
+    $statement->closeCursor();
+
+    // return results
+    return $results;
+}
+function sortInventory($name, $value, $order) {
+    // db
+    global $db;
+    // query
+    if ($value == "itemName") {
+        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemName :order";
+    } elseif ($value == "itemType") {
+        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemType :order";
+    } elseif ($value == "itemAveragePrice") {
+        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemAveragePrice :order";
+    } elseif ($value == "itemCount") {
+        $query = "select * from User natural join Inventory natural join Items where userName=:name order by itemCount :order";
+    } elseif ($value == "numListingsAvailable") {
+        $query = "select * from User natural join Inventory natural join Items where userName=:name order by numListingsAvailable :order";
+    }
+    // prepare
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':name', $name);
+    $statement->bindValue(':value', $value);
+    $statement->bindValue(':order', $order);
     // execute
     $statement->execute();
     // retrieve
@@ -89,6 +139,45 @@ function selectInventory($name) {
     return $results;
 }
 
+
+function insertIntoInventory($userID, $itemID, $itemCount) {
+    // db
+    global $db;
+    // query
+    $query = "insert into Inventory values (:userID, :itemID, :itemCount)";
+    // prepare
+
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $statement->bindValue(':itemCount', $itemCount);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+    return $results;
+    // return results
+}
+
+function clearInventory($userID) {
+    // db
+    global $db;
+    // query
+    $query = "delete from Inventory where (userID=:userID)";
+    // prepare
+
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userID', $userID);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+    return $results;
+    // return results
+}
+
 function getUserIDByUserName($userName)
 {
     global $db;
@@ -98,7 +187,7 @@ function getUserIDByUserName($userName)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['userID'];
 }
 
 function getItemIDByItemName($itemName)
@@ -110,7 +199,7 @@ function getItemIDByItemName($itemName)
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['itemID'];
 }
 
 function getListingPriceByUserItem($userID, $itemID)
