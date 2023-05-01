@@ -55,7 +55,7 @@
       
         // now you can use this profile info to create account in your website and make user logged in. 
       } else {
-        echo "<div style='margin-top:20%; margin-left: 40%;'><button style='height: 100px; width:300px; border-color: #51AD66; font-size: 32px; font-family: 'AC', Arial;'> <a style=''href='".$client->createAuthUrl()."'>Google Login</a></button></div>";
+        echo "<div style='margin-top:20%; margin-left: 38.5%;'><button style='height: 100px; width:300px; border-color: #51AD66; font-size: 32px; font-family: 'AC', Arial;'> <a style=''href='".$client->createAuthUrl()."'>Google Login</a></button></div>";
       }
       ?>
     </body>
