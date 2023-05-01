@@ -77,10 +77,7 @@ session_start();
             if(isset($_SESSION['login_id']));?>
             <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login</a>
 
-          
-
           <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
-
               <i class='bx bx-moon'></i>
             </div>
           </header>
@@ -89,9 +86,9 @@ session_start();
                 <div class="intro_container container">
                   <div class="intro_body">
                     <div class="intro_content" style= "margin-top: 10%;">
-                      <h1 class="intro_title"> <b>Welcome<span2>_</span2>to</b>
+                      <h1 class="intro_title"> <b style="color: #ad8751;">Welcome<span2>_</span2>to</b>
                       <h1 class="intro_title" style="font-family: 'AC', Arial; color:#51AD66;"> <span>Nookazon</span><span2>_</span2><span>2.0</span></h1>
-                      <h1 class="intro_position"> The Best Animal Crossing Database</h1>
+                      <h1 class="intro_position" style="color: #ad8751;"> The Best Animal Crossing Database</h1>
                       <br1>
                       <div class="typewriter">
                         <div class = "static"> Look for </div>

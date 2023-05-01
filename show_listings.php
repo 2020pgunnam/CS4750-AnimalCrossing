@@ -57,7 +57,6 @@ $listings = selectAllListings();
             if(isset($_SESSION['login_id']));?>
             <a href="redirect.php" class= "a_links" style = "margin-top: 3px; margin-right: 5px;"></i> Login</a>
 
-
             <div class="header_moon" style= "margin-left: 0px;" onclick="setDarkMode()" aria-label="Toggle Dark Mode">
                 <i class='bx bx-moon'></i>
               </div>
