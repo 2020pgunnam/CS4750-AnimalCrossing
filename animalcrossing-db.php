@@ -46,7 +46,7 @@ function selectAllListings() {
     // db
     global $db;
     // query
-    $query = "select userName, itemName, itemSellingPrice, itemImageURL, userRating from Listings L natural join Seller S natural join Items I where sellerID=userID";
+    $query = "select userID, userName, itemName, itemSellingPrice, itemImageURL, userRating from Listings L natural join Seller S natural join Items I where sellerID=userID";
     // prepare
     $statement = $db->prepare($query);
     // execute
@@ -88,6 +88,26 @@ function selectInventory($userID) {
     $statement = $db->prepare($query);
 
     $statement->bindValue(':userID', $userID);
+    $statement->execute();
+    // retrieve
+    $results = $statement->fetchAll();
+    // close cursor
+    $statement->closeCursor();
+
+    // return results
+    return $results;
+}
+function findInventoryFromItemID($userID, $itemID) {
+    // db
+    global $db;
+    // query
+    $query = "select * from User natural join Inventory natural join Items where userID=:userID and itemID=:itemID";
+    // prepare
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    // execute
     $statement->execute();
     // retrieve
     $results = $statement->fetchAll();
@@ -170,7 +190,55 @@ function insertIntoInventory($userID, $itemID, $itemCount) {
     return $results;
     // return results
 }
+function incrementItemCountInventory($userID, $itemID) {
+    // db
+    global $db;
+    // query
+    $query = "update Inventory set itemCount = itemCount + 1
+    where userID = :userID and itemID = :itemID";
+    // prepare
 
+    $statement = $db->prepare($query);
+
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    // execute
+    $results = $statement->execute();
+    // close cursor
+    $statement->closeCursor();
+
+    addInventoryToContainsTable($userID);
+    addInventoryToHasTable($userID);
+    return $results;
+    // return results
+}
+function deleteFromInventory($userID, $itemID) {
+    // db
+    global $db;
+    // query
+    $query = "delete from Inventory where userID=:userID and itemID=:itemID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $results = $statement->execute();
+    $statement->closeCursor();
+
+    return $results;
+}
+function decrementItemCountInventory($userID, $itemID) {
+    // db
+    global $db;
+    // query
+    $query = "update Inventory set itemCount = itemCount - 1
+    where userID = :userID and itemID = :itemID";
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userID', $userID);
+    $statement->bindValue(':itemID', $itemID);
+    $results = $statement->execute();
+    $statement->closeCursor();
+
+    return $results;
+}
 function clearInventory($userID) {
     // db
     global $db;
@@ -236,7 +304,7 @@ function getListingPriceByUserItem($userID, $itemID)
 
 function getListingIDBySellerItem($sellerID, $itemID){
     global $db;
-    $query = "select listingID from (User join Listings on sellerID=userID) where (sellerID=:sellerID and itemID=:itemID)";
+    $query = "select listingID from Listings where (sellerID=:sellerID and itemID=:itemID)";
     $statement = $db->prepare($query);
     $statement->bindValue(':sellerID', $sellerID);
     $statement->bindValue(':itemID', $itemID);
@@ -373,7 +441,7 @@ function deleteListing($itemID, $userID)
     $statement->closeCursor();
     //echo 'deleted itemID';
     // When deleting listing, should update for item numListingsAvailable
-    $query = "update Items set numListingsAvailable=(numListingsAvailable-1) where itemID=:itemID";
+    $query = "update Items set numListingsAvailable=(numListingsAvailable-1) where itemID=:itemID and numListingsAvailable > 0";
     $statement = $db->prepare($query);
     $statement->bindValue(':itemID', $itemID);
     $statement->execute();

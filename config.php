@@ -10,7 +10,7 @@ $client->setClientId($client_id);
 $client->setClientSecret($client_secret);
 
 # redirection location is the path to login.php
-$redirect_uri = 'http://localhost/CS4750-AnimalCrossing/redirect.php';
+$redirect_uri = 'http://localhost:81/CS4750-AnimalCrossing/redirect.php';
 $client->setRedirectUri($redirect_uri);
 $client->addScope("email");
 $client->addScope("profile");

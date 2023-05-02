@@ -1,5 +1,5 @@
 
-
+error_reporting(E_ALL);
 <?php
 
 require("connect-db.php");
@@ -11,9 +11,9 @@ $userName = $_SESSION['f_name'];
 if(isset($_POST["Import"])){
 
   $filename=$_FILES["file"]["tmp_name"];
-  if (empty($_FILES['file']['tmp_name'])); {
-    echo "<script>alert('no file has been chosen'); window.location.href='profile.php'; </script>";
-  }
+  // if (empty($_FILES['file']['tmp_name'])); {
+  //   echo "<script>alert('no file has been chosen'); window.location.href='profile.php'; </script>";
+  // }
    if($_FILES["file"]["size"] > 0)
    {
       $file = fopen($filename, "r");

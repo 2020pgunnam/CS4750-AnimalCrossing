@@ -17,7 +17,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Buy Listing"))
   {
-    addtoBuys($userID, $userName, $_POST['item_to_buy'], $_POST['seller_buy_from'], $_POST['item_to_buy'], $_POST['price_bought']);
+    //addtoBuys($userID, $userName, $_POST['item_to_buy'], $_POST['seller_buy_from'], $_POST['item_to_buy'], $_POST['price_bought']);
+    if(findInventoryFromItemID($userID, $_POST['item_to_buy']) == null){
+      insertIntoInventory($userID, $_POST['item_to_buy'], 1);
+    }
+    else
+    {
+      incrementItemCountInventory($userID, $_POST['item_to_buy']);
+    }
+    if(findInventoryFromItemID($_POST['seller_buy_from'], $_POST['item_to_buy']) != null){
+      if(findInventoryFromItemID($_POST['seller_buy_from'], $_POST['item_to_buy'])['itemCount'] == 1){
+        removeFromInventory($_POST['seller_buy_from'], $_POST['item_to_buy']);
+      }
+      else
+      {
+        decrementItemCountInventory($_POST['seller_buy_from'], $_POST['item_to_buy']);
+      }
+    }
+    deleteListing($_POST['item_to_buy'], $_POST['seller_buy_from']);
+   
     $listings = selectAllListings();
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
@@ -113,8 +131,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             <tbody>
               <?php foreach ($listings as $item): ?>
                 <?php $itemID = getItemIDByItemName($item['itemName']);?>
-                <?php $sellerID = getUserIDByUserName($item['userName']); ?>
-                <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
+                <?php $sellerID = $item['userID'];?>
+                <?php $listingPrice = getListingPriceByUserItem($userID, $itemID);  ?>
                 <?php $listingID = getListingIDBySellerItem($sellerID, $itemID); ?>
                 <tr>
                   <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
@@ -122,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                   <td><?php echo $item['itemSellingPrice']; ?></td>
                   <td><?php echo $item['userName']; ?></td>
                   <td><?php echo $item['userRating']; ?></td>
-                <?php if($listingPrice == null) { ?>
+                <?php if($userID!=$item['userID']) { ?>
                     <td>
                       <form action="show_listings.php" method="post">
                         <input type="submit" name="actionBtn" value="Buy Listing" class="btn btn-dark"/>
