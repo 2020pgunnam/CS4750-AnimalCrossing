@@ -1,3 +1,4 @@
+
 <?php
 require_once "config.php";
 require('connect-db.php');
@@ -9,8 +10,8 @@ $userName = $_SESSION['f_name'];
 // clearInventory($userID);
 
 // check if inventory is null
-$previnventory = selectInventory($userName);
-if ($previnventory == NULL)
+$inventory = selectInventory($userID);
+if ($inventory == NULL)
 {
   // clear just in case, generate random inventory
   clearInventory($userID);
@@ -25,21 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
   if (!empty($_POST['filterBtn']) && ($_POST['filterBtn'] == "Filter"))
   {
+
     $inventory = filterInventory($userID, $_POST['filterText']);
   }
-  if (!empty($_POST['resetBtn']) && ($_POST['resetBtn'] == "Reset"))
+  else if (!empty($_POST['resetBtn']) && ($_POST['resetBtn'] == "Reset"))
   {
     $inventory = selectInventory($userID);
   }
-  if (!empty($_POST['asc']) && ($_POST['asc'] == "Asc"))
+  else if (!empty($_POST['asc']) && ($_POST['asc'] == "Asc"))
   {
     $inventory = sortInventory($userID,$_POST['dropDownSort'], "ASC");
   }
-  if (!empty($_POST['desc']) && ($_POST['desc'] == "Desc"))
+  else if (!empty($_POST['desc']) && ($_POST['desc'] == "Desc"))
   {
     $inventory = sortInventory($userID,$_POST['dropDownSort'], "DESC");
   }
-  if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
+  else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Update Listing"))
   {
     updateListing($_POST['item_listing_to_update'], $userID, $_POST['sellingPrice']);
     $inventory = selectInventory($userID);
@@ -47,14 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Create Listing"))
   {
     $listingID = (int)getHighestListingID() + 1;
+
     if(getUserRating($userID) == null){
-      addSeller($userID, $userName);
+      addSeller($userID, $userName, 3);
     }
     $userRating = (float)getUserRating($userID);
     addListing($listingID, $userID, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
-    if(checkAdds($listingID) == null){
-      addtoAdds($userID, $userName, $listingID, $userRating, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
-    }
+    // if(checkAdds($listingID) == null){
+    //   addtoAdds($userID, $userName, $listingID, $userRating, $_POST['item_listing_to_create'], $_POST['sellingPrice']);
+    // }
     $inventory = selectInventory($userID);
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
@@ -173,7 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
               ?>
               <?php foreach ($inventory as $item): ?>
                 <?php $itemID = getItemIDByItemName($item['itemName']);?>
-                <?php $listingPrice = getListingPriceByUserItem($userID, $itemID); ?>
+                <?php $listingPrice = getListingPriceByUserItem($userID, $itemID);
+                ?>
                 <tr>
                 <td><img src=<?php echo $item['itemImageURL'];?> width="150px"></td>
                   <td><?php echo $item['itemName']; ?></td>
