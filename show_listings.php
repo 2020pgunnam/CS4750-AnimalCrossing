@@ -36,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     }
     deleteListing($_POST['item_to_buy'], $_POST['seller_buy_from']);
    
-    
     $listings = selectAllListings();
   }
   else if (!empty($_POST['actionBtn']) && ($_POST['actionBtn'] == "Delete Listing"))
