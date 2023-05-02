@@ -224,14 +224,14 @@ function getItemIDByItemName($itemName)
 function getListingPriceByUserItem($userID, $itemID)
 {
     global $db;
-    $query = "select itemSellingPrice from (User join Listings on sellerID=userID) where (userID=:userID and itemID=:itemID)";
+    $query = "select itemSellingPrice from Listings where (sellerID=:userID and itemID=:itemID)";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':itemID', $itemID);
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
-    return $result;
+    return $result['itemSellingPrice'];
 }
 
 function getListingIDBySellerItem($sellerID, $itemID){
@@ -350,12 +350,13 @@ function getUserRating($userID) {
     return $result;
 }
 
-function addSeller($userID, $userName) {
+function addSeller($userID, $userName, $rating) {
     global $db;
-    $query = "insert into Seller values (:userID, :userName)";
+    $query = "insert into Seller values (:userID, :userName, :rating)";
     $statement = $db->prepare($query);
     $statement->bindValue(':userID', $userID);
     $statement->bindValue(':userName', $userName);
+    $statement->bindValue(':rating', $rating);
     $statement->execute();
     $result = $statement->fetch();
     $statement->closeCursor();
